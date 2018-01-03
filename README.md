@@ -9,4 +9,4 @@
 - feh
 - noefetch
 - conky
-- + Scripts .sh
+- scripts .sh
