@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/usr/share/sddm/themes/breeze'
+let g:netrw_dirhist_2='/home/ben/.config/i3'
+let g:netrw_dirhist_3='/home/ben/.tmuxifier'
+let g:netrw_dirhist_4='/home/ben/Git/amd-i3-blonglee/Personal'
+let g:netrw_dirhist_5='/home/ben/Git/Dotfiles-deadsidestar/.config/termite'
+let g:netrw_dirhist_6='/home/ben/.fzf'

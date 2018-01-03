@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e 
+
+#instbluetooth=0;
+#instprinter=0;
+
+#echo ""
+#echo "Do you wish to install Bluetooth ?"
+#select yn in "Yes" "No"; do
+#    case $yn in
+#        Yes ) instbluetooth=1;;
+#        No ) break;;
+#    esac
+#done
+
+#read -p "Continue (y/n)?" choice
+
+read -p  "Do you wish to install Bluetooth ?" choice
+case "$choice" in 
+  y|Y ) instbluetooth=1;;
+  n|N ) instbluetooth=0;;
+  * ) echo "invalid";;
+esac
+
+#echo ""
+#echo "Do you wish to install Printers ?"
+#select yn in "Yes" "No"; do
+#    case $yn in
+#        Yes ) instprinter=1;;
+#        No ) break;;
+#    esac
+#done
+
+
+if [$instbluetooth=1]; then
+    echo "Blue !"
+fi
+
+if [$instprinter=1]; then
+    echo "Printers !"
+fi
