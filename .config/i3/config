@@ -1,4 +1,3 @@
-# vim:filetype=i3
 
 ###########################################################################
 # >>>----------------------  I3 CONFIG FILE  -------------------------<<< #
@@ -21,7 +20,7 @@
 # Tab = TAB key
 
 ###########################################################################
-# >>>--------------------    GLOBAL SETTINGS   -----------------------<<< #
+# >>>-------------------    GLOBAL SETTINGS   -----------------------<<< #
 ###########################################################################
 
 # All personal preferences are mentioned below the title personal settings
@@ -148,6 +147,7 @@ font pango:UbuntuMono-regular 12
 # use xrandr to know the names of your monitors
 # use this line to tell which monitor is on the right
 # xrandr --output DVI-I-2 --right-of DVI-I-1 --auto
+# exec --no-startup-id xrandr --output HDMI2 --right-of HDMI1 --auto
 
 # my current setup
 ## set $firstMonitor DVI-I-1
@@ -317,15 +317,34 @@ popup_during_fullscreen smart
 # >>>-----------------   MENU LAUNCHER   -----------------------------<<< #
 ###########################################################################
 
-# start dmenu (a program launcher)
+# start ROFI in run mode (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show run
 # bindsym $mod+d exec dmenu_run -fn 'System San Fransico Display:bold:pixelsize=18' */ 
+
+# start ROFI in window mod
+bindsym $mod+shift+d exec rofi -show window
 
 # bindsym $mod+d exec rofi -show run -lines 1 -eh 2 -width 100 -padding 10 -opacity "85" -bw 0  -font "System San Fransisco Display 18"
 
 # start alternative menu j4-dmenu based on desktop files in /usr/share/applications
-bindsym $mod+shift+d exec rofi -show window
 # bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'System San Fransisco Display:bold:pixelsize=18' -nb '#0d2c49' -nf '#5c83a7' -sf '#d7f0fa' -sb '#0c2032'" */
+
+
+# start dmenu
+# bindsym $mod+shift+d exec --no-startup-id dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'
+
+# gmrun
+# bindsym mod1+F2 exec --no-startup-id gmrun
+
+# start xfce-appfinder
+# bindsym mod1+F3 exec --no-startup-id xfce4-appfinder
+
+# start rofi full  -- ROFI IS NOT INSTALLED 
+bindsym $mod+F11 exec --no-startup-id rofi -show run -fullscreen -font "Noto Sans 13"
+
+# start rofi small  -- ROFI IS NOT INSTALLED
+#bindsym $mod+F12 exec --no-startup-id rofi -show run -font "Noto Sans 13"
+
 
 # bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'System San Fransisco Display:bold:pixelsize=18' -nb '#193445' -nf '#97cce1' -sf '#274754' -sb '#97cce1'"
 # bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'System San Fransisco Display:bold:pixelsize=18' -nb '#fdf6e3' -nf '#586c75' -sf '#fdf6e3' -sb '#FFAF00'"
@@ -353,12 +372,12 @@ bindsym Mod1+Ctrl+BackSpace mode "$mode_system"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id ~/.config/i3/i3exit.sh lock, mode "default"
-    bindsym e exec --no-startup-id ~/.config/i3/i3exit.sh logout, mode "default"
-    bindsym s exec --no-startup-id ~/.config/i3/i3exit.sh suspend, mode "default"
-    bindsym h exec --no-startup-id ~/.config/i3/i3exit.sh hibernate, mode "default"
-    bindsym r exec --no-startup-id ~/.config/i3/i3exit.sh reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id ~/.config/i3/i3exit.sh shutdown, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.config/scripts/i3/i3exit.sh shutdown, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
