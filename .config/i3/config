@@ -129,7 +129,8 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # font pango:SourceCodePro-SemiBold 11
 # font pango:Source Code Pro for Powerline, FontAwesome Regular, Icons 9
 # font pango:Terminus 14px
-font pango:UbuntuMono-regular 12
+font pango:Inconsolata Bold 14
+# font pango:UbuntuMono-regular 12
 # from ttf-chromeos-fonts
 # font pango:Cousine 13
 # font pango:Arimo 11
