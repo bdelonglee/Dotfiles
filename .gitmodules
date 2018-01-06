@@ -40,3 +40,15 @@
 [submodule ".vim/bundle/vim-tmux-navigator"]
 	path = .vim/bundle/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule ".vim/vim-tmux"]
+	path = .vim/vim-tmux
+	url = https://github.com/tmux-plugins/vim-tmux.git
+[submodule ".vim/bundle/vim-tmux"]
+	path = .vim/bundle/vim-tmux
+	url = https://github.com/tmux-plugins/vim-tmux.git
+[submodule ".vim/bundle/tail-bundle"]
+	path = .vim/bundle/tail-bundle
+	url = https://github.com/vim-scripts/Tail-Bundle.git
+[submodule ".vim/bundle/vimya"]
+	path = .vim/bundle/vimya
+	url = https://github.com/vim-scripts/Vimya.git
