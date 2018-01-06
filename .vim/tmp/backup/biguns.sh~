@@ -1,3 +1,0 @@
-#!/bin/bash
-
-du -ah /home | sort -n -r | head -n 30

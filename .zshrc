@@ -110,6 +110,7 @@ export VISUAL
 EDITOR=/usr/bin/vim
 export EDITOR
 
+alias la=ls -la
 ###########################################################
 
 # enable vim mode on commmand line
