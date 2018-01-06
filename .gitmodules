@@ -52,3 +52,6 @@
 [submodule ".vim/bundle/vimya"]
 	path = .vim/bundle/vimya
 	url = https://github.com/vim-scripts/Vimya.git
+[submodule ".vim/pack/themes/opt/solarized8"]
+	path = .vim/pack/themes/opt/solarized8
+	url = https://github.com/lifepillar/vim-solarized8.git
