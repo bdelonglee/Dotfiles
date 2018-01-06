@@ -1,3 +1,6 @@
 [submodule "goyo.vim"]
 	path = goyo.vim
 	url = https://github.com/junegunn/goyo.vim.git
+[submodule ".vim/bundle/goyo.vim"]
+	path = .vim/bundle/goyo.vim
+	url = https://github.com/junegunn/goyo.vim.git
