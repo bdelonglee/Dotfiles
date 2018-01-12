@@ -8,9 +8,9 @@ if pgrep -x "conky" > /dev/null
 then
     # echo "Running" ;
 	pkill conky ;
-    # conky -c ~/.config/i3/system-shortcuts;
+    # conky -c ~/.config/i3/scripts/conky/system-shortcuts;
 else
     # echo "Stopped" ;
-	# ~/.config/i3/start-conkys.sh;
-    conky -c ~/.config/i3/system-shortcuts;
+	# ~/.config/i3/scripts/conky/start-conkys.sh;
+    conky -c ~/.config/i3/scripts/conky/system-shortcuts;
 fi

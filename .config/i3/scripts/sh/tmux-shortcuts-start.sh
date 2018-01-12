@@ -8,9 +8,9 @@ if pgrep -x "conky" > /dev/null
 then
     # echo "Running" ;
 	pkill conky ;
-    # conky -c ~/.config/i3/tmux-shortcuts;
+    # conky -c ~/.config/i3/scripts/conky/tmux-shortcuts;
 else
     # echo "Stopped" ;
-	# ~/.config/i3/start-conkys.sh;
-    conky -c ~/.config/i3/tmux-shortcuts;
+	# ~/.config/i3/scripts/conky/start-conkys.sh;
+    conky -c ~/.config/i3/scripts/conky/tmux-shortcuts;
 fi

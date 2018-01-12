@@ -1,6 +1,7 @@
+# vim: set ft=i3:
 
 ###########################################################################
-# >>>----------------------  I3 CONFIG FILE  -------------------------<<< #
+# >>> ---------------------  I3 CONFIG FILE  ------------------------ <<< #
 ###########################################################################
 #
 # Written to work on Linux Mint 18 KDE, 05-2017
@@ -20,7 +21,7 @@
 # Tab = TAB key
 
 ###########################################################################
-# >>>-------------------    GLOBAL SETTINGS   -----------------------<<< #
+# >>> -------------------    GLOBAL SETTINGS   ---------------------- <<< #
 ###########################################################################
 
 # All personal preferences are mentioned below the title personal settings
@@ -33,7 +34,7 @@ set $mod Mod4
 # VARIABLES
 set $term konsole --hide-menubar 
 set $browser firefox
-set $flash --no-startup-id bash ~/.config/Scripts/flash_win.sh
+set $flash --no-startup-id bash ~/.config/i3/scripts/sh/flash_win.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -47,7 +48,7 @@ bindsym $mod+Return exec $term;focus
 bindsym $mod+Shift+Return exec $term -e tmux -2
 
 ###########################################################################
-# >>>---------------    KEYBOARD and MOUSE    ------------------------<<< #
+# >>> --------------    KEYBOARD and MOUSE    ------------------------<<< #
 ###########################################################################
 
 # QWERTY US International
@@ -72,7 +73,7 @@ exec unclutter
 # bindsym button8 move right
 
 ###########################################################################
-# >>>---------------------   WORKSPACES   ----------------------------<<< #
+# >>> --------------------   WORKSPACES   ----------------------------<<< #
 ###########################################################################
 
 set $ws1 "1"
@@ -111,7 +112,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 ###########################################################################
-# >>>-------------------------   FONTS   -----------------------------<<< #
+# >>> ------------------------   FONTS   -----------------------------<<< #
 ###########################################################################
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -141,7 +142,7 @@ font pango:Inconsolata Bold 14
 
 
 ###########################################################################
-# >>>---------------------   DUAL SCREEN   ---------------------------<<< #
+# >>> --------------------   DUAL SCREEN   ---------------------------<<< #
 ###########################################################################
 
 # setting variables for later use
@@ -169,7 +170,7 @@ workspace $ws3 output $firstMonitor
 workspace $ws10 output $firstMonitor
 
 ###########################################################################
-# >>>-----------------   FOCUS AND MOVE   ----------------------------<<< #
+# >>> ----------------   FOCUS AND MOVE   ----------------------------<<< #
 ###########################################################################
 
 # toggle tiling / floating
@@ -205,7 +206,7 @@ bindsym $mod+Shift+Right move right
 
 
 ###########################################################################
-# >>>--------------------   PERSO FUNC  ------------------------------<<< #
+# >>> -------------------   PERSO FUNC  ------------------------------<<< #
 ##########################################@################################
 
 # Flash current win
@@ -214,7 +215,7 @@ bindsym $mod+BackSpace		exec $flash
 bindsym $mod+Shift+Delete	exec $truemute ; exec $truepause ; workspace lmao ; exec $term -e htop ; exec $term -e ranger
 
 ###########################################################################
-# >>>---------------   TILING PARAMETER   ----------------------------<<< #
+# >>> --------------   TILING PARAMETER   ----------------------------<<< #
 ###########################################################################
 
 # orientation for new workspaces 
@@ -273,7 +274,7 @@ bindsym $mod+a focus parent
 bindsym $mod+z focus child
 
 ###########################################################################
-# >>>------------   FLOATING WINDOWS LIST    -------------------------<<< #
+# >>> -----------   FLOATING WINDOWS LIST    -------------------------<<< #
 ###########################################################################
 
 #floating enabled from some programs - find with xprop
@@ -346,7 +347,7 @@ for_window [class="Xfce4-taskmanager"] floating enable
 popup_during_fullscreen smart
 
 ###########################################################################
-# >>>-----------------   MENU LAUNCHER   -----------------------------<<< #
+# >>> ----------------   MENU LAUNCHER   -----------------------------<<< #
 ###########################################################################
 
 # start ROFI in run mode (a program launcher)
@@ -387,7 +388,7 @@ bindsym $mod+F11 exec --no-startup-id rofi -show run -fullscreen -font "Noto San
 
 
 ###########################################################################
-# >>>------------   REFRESH RESTART LOG OUT   ------------------------<<< #
+# >>> -----------   REFRESH RESTART LOG OUT   ------------------------<<< #
 ###########################################################################
 
 # reload the configuration file
@@ -404,12 +405,12 @@ bindsym Mod1+Ctrl+BackSpace mode "$mode_system"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
-    bindsym e exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
-    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
-    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
-    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id ~/.config/scripts/i3/i3exit.sh shutdown, mode "default"
+    bindsym l       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh lock, mode "default"
+    bindsym e       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh logout, mode "default"
+    bindsym s       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh suspend, mode "default"
+    bindsym h       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh hibernate, mode "default"
+    bindsym r       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh shutdown, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -418,7 +419,7 @@ mode "$mode_system" {
 
 
 ###########################################################################
-# >>>-------------------   ASSIGNATION   -----------------------------<<< #
+# >>> ------------------   ASSIGNATION   -----------------------------<<< #
 ###########################################################################
 
 #assign [class="Firefox"]          → $ws1
@@ -429,7 +430,7 @@ assign [class="dolphin"]          → $ws3
 for_window [class="Spotify"] move to workspace $ws10
 
 ###########################################################################
-# >>>-----------------    STARTUP EXECUTION    -----------------------<<< #
+# >>> ----------------    STARTUP EXECUTION    -----------------------<<< #
 ###########################################################################
 
 # SYSTEM APPLICATION
@@ -455,15 +456,15 @@ exec firefox
 #exec spotify
 #for_window [class="Spotify"] focus
 # conkys info on desktop
-exec ~/.config/i3/start-conkys.sh
+exec ~/.config/i3/scripts/conky/start-conkys.sh
 #exec dunst -config ~/.config/i3/dunstrc
 
 ###########################################################################
-# >>>-------------   SHORTCUTS APPLICATION    ------------------------<<< #
+# >>> ------------   SHORTCUTS APPLICATION    ------------------------<<< #
 ###########################################################################
 
 bindsym $mod+F1 exec firefox
-bindsym $mod+Shift+F1  workspace $ws1; exec firefox; focus
+bindsym $mod+Shift+F1 workspace $ws1; exec firefox; focus
 bindsym $mod+F2 exec $term -e tmux -2
 bindsym $mod+Shift+F2 workspace $ws3; exec $term -e tmux -2; focus
 bindsym $mod+F3 exec $term -e ranger
@@ -510,10 +511,10 @@ bindsym $mod+c mode "$mode_conky"
 
 set $mode_conky (q) Kill, (i) i3 shortcuts, (s) system infos, (t) tmux shortcuts
 mode "$mode_conky" {
-    bindsym q exec  ~/.config/i3/stop_conky.sh;mode "default"
-    bindsym i exec  ~/.config/i3/system-shortcuts-start.sh;mode "default"
-    bindsym s exec  ~/.config/i3/system-overview-start.sh;mode "default"
-    bindsym t exec  ~/.config/i3/tmux-shortcuts-start.sh;mode "default"
+    bindsym q exec  ~/.config/i3/scripts/sh/stop_conky.sh;mode "default"
+    bindsym i exec  ~/.config/i3/scripts/sh/system-shortcuts-start.sh;mode "default"
+    bindsym s exec  ~/.config/i3/scripts/sh/system-overview-start.sh;mode "default"
+    bindsym t exec  ~/.config/i3/scripts/sh/tmux-shortcuts-start.sh;mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -522,7 +523,7 @@ mode "$mode_conky" {
 
 
 ###########################################################################
-# >>>------------------   SCREENSHOT    ------------------------------<<< #
+# >>> -----------------   SCREENSHOT    ------------------------------<<< #
 ###########################################################################
 
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
@@ -530,7 +531,7 @@ bindsym Control+Print exec gnome-screenshot -i
 
 
 ###########################################################################
-# >>>------------    VARIETY for WALLPAPERS     ----------------------<<< #
+# >>> -----------    VARIETY for WALLPAPERS     ----------------------<<< #
 ###########################################################################
 
 #Variety keybindings
@@ -545,7 +546,7 @@ bindsym Control+mod1+f exec variety -f
 
 
 ###########################################################################
-# >>>--------------------   AUDIO   ----------------------------------<<< #
+# >>> -------------------   AUDIO   ----------------------------------<<< #
 ###########################################################################
 
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
@@ -558,7 +559,7 @@ bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer
 
 
 ###########################################################################
-# >>>----------------    SCRATCHPAD    -------------------------------<<< #
+# >>> ---------------    SCRATCHPAD    -------------------------------<<< #
 ###########################################################################
 
 #bindsym $mod+Control+0 [con_mark="music"] scratchpad show
@@ -579,7 +580,7 @@ bindsym $mod+u      [instance="dropdown"] scratchpad show
 
 
 ###########################################################################
-# >>>--------------------    BAR    ----------------------------------<<< #
+# >>> -------------------    BAR    ----------------------------------<<< #
 ###########################################################################
 
 #bar {
@@ -649,7 +650,7 @@ bar {
 # client.urgent           #4A4A4A #4A4A4A #f7f7f7 #4A4A4A
 
 ###########################################################################
-# >>>---------------------   RESIZE   --------------------------------<<< #
+# >>> --------------------   RESIZE   --------------------------------<<< #
 ###########################################################################
 
 bindsym $mod+Shift+y		resize shrink width 2 px or 2 ppt
@@ -657,10 +658,10 @@ bindsym $mod+Shift+u		resize shrink height 5 px or 5 ppt
 bindsym $mod+Shift+i		resize grow height 5 px or 5 ppt
 bindsym $mod+Shift+o		resize grow width 2 px or 2 ppt
 
-bindsym $mod+Ctrl+Shift+y		resize shrink width  15 px or 15 ppt
-bindsym $mod+Ctrl+Shift+u		resize shrink height 20 px or 20 ppt
-bindsym $mod+Ctrl+Shift+i		resize grow height   20 px or 20 ppt
-bindsym $mod+Ctrl+Shift+o		resize grow width    15 px or 15 ppt
+bindsym $mod+Ctrl+Shift+y	resize shrink width  15 px or 15 ppt
+bindsym $mod+Ctrl+Shift+u	resize shrink height 20 px or 20 ppt
+bindsym $mod+Ctrl+Shift+i	resize grow height   20 px or 20 ppt
+bindsym $mod+Ctrl+Shift+o	resize grow width    15 px or 15 ppt
 
 bindsym $mod+plus			gaps inner current plus 5
 bindsym $mod+minus			gaps inner current minus 5
@@ -705,7 +706,7 @@ bindsym $mod+r mode "resize"
 
 
 ###########################################################################
-# >>>--------------  I 3  G A P S  N E X T   -------------------------<<< #
+# >>> -------------  I 3  G A P S  N E X T   -------------------------<<< #
 ###########################################################################
 
 # Settings for I3 next gap git
@@ -721,7 +722,7 @@ gaps outer 5
 bindsym $mod+Ctrl+r    gaps inner all set 15; gaps outer all set 5
 
 ###########################################################################
-# >>>--------------       I3 GAPS CHANGE     -------------------------<<< #
+# >>> -------------       I3 GAPS CHANGE     -------------------------<<< #
 ###########################################################################
 
 set $mode_gaps Gaps: (o) outer, (i) inner, (f) full, (d) default, (g) gaps
@@ -775,7 +776,7 @@ mode "$mode_gaps_outer" {
 }
 
 ###########################################################################
-# >>>--------------       C O M P T O N      -------------------------<<< #
+# >>> -------------       C O M P T O N      -------------------------<<< #
 ###########################################################################
 
 #if you want transparency on non-focused windows
@@ -783,7 +784,7 @@ exec_always compton --config ~/.config/i3/compton.conf
 
 
 ###########################################################################
-# >>>--------------    BAR APPEARANCE ARCHIVE     --------------------<<< #
+# >>> -------------    BAR APPEARANCE ARCHIVE     --------------------<<< #
 ###########################################################################
 
 # Orange background with black text - not focus grey background - white text
