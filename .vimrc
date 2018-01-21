@@ -52,63 +52,82 @@
     " runtime path for CtrlP
     set runtimepath^=~/.vim/bundle/ctrlp.vim
 
+    " -> VUNDLE START ------------------------------------------------------
     " alternatively, pass a path where Vundle should install plugins
     " call vundle#begin('~/some/path/here')
     call vundle#begin()
 
+    " -> VIM AIRLINE -------------------------------------------------------
     " Vim airline light
     "Plugin 'itchyny/lightline.vim'
 
+    " -> VIM-EXPAND-REGION -------------------------------------------------
     " + - expand shrink visual selection
     Plugin 'terryma/vim-expand-region'
 
+    " -> MRU ---------------------------------------------------------------
     " Most Recently Used  (MRU)
     Plugin 'yegppan/mru'
 
+    " -> BUFEXPLORER -------------------------------------------------------
     " Buffers explorer leader be/bs/bv    f F v V a t
     Plugin 'vim-scripts/bufexplorer.zip.git'
 
+    " -> VUNDLE ------------------------------------------------------------
     " let Vundle manage Vundle, required
     Plugin 'gmarik/Vundle.vim'
 
+    " -> VIM-TMUX ----------------------------------------------------------
 	" syntax for .tmux.conf
     Plugin 'tmux-plugins/vim-tmux'
 
+    " -> VIM-TMUX-NAVIGATOR ------------------------------------------------
     Bundle 'christoomey/vim-tmux-navigator'
 
+    " -> TAGBAR ------------------------------------------------------------
     " Class/module browser > 
     " dependencies on exuberant-ctags (deprecated) or universal-ctags
     Plugin 'majutsushi/tagbar'                  
 
+    " -> CTRLP -------------------------------------------------------------
     " Fast transitions on project files
     Plugin 'kien/ctrlp.vim'                     
     " Ctrl+p
     
+    " -> SUPERTAB ----------------------------------------------------------
     Plugin 'ervandew/supertab'
     
+    " -> VIM-PEEKABOO ------------------------------------------------------
     Plugin 'junegunn/vim-peekaboo'
     " show buffers in splitted window when use " or @
     
+    " -> INDENTLINE --------------------------------------------------------
     Bundle 'Yggdroot/indentLine'
     " trace vertical lines to show indentation level
     " let g:indentLine_char = '|'
     let g:indentLine_color_term = 239
     
+    " -> VIM-ESAYMOTION ----------------------------------------------------
     Plugin 'easymotion/vim-easymotion'
     "\s \w \L
 
+    " -> VIM-SURROUND ------------------------------------------------------
     Plugin 'tpope/vim-surround'
     " cs]' (replace ] par ') cs'<q>  cst'  (t=tag)  ysiw]  cs]{   cs]}   yss)  (sentence) ds)
 
+    " -> VIM-REPEAT --------------------------------------------------------
     Plugin 'tpope/vim-repeat'
     " works with surround
 
+    " -> VIM-COMMENTARY ----------------------------------------------------
     Plugin 'tpope/vim-commentary'
     " gcc (1 line) gcap (a paragraph) gc2j (2lines) :7,17Commentary  :g/TODO/Commentary
 
+    " -> VIM-MULTIPLE-CURSOR -----------------------------------------------
     Plugin 'terryma/vim-multiple-cursors'
     " Sublime style <C-n> <C-p> <C-x>
 
+    " -> VIM-ESAY-ALIGN ----------------------------------------------------
     Plugin 'junegunn/vim-easy-align'
     xmap ga <Plug>(EasyAlign)
     " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -125,6 +144,7 @@
     " easy-align ancestor
     " Bundle 'godlygeek/tabular'
 
+    " -> GOYO --------------------------------------------------------------
     Plugin 'junegunn/goyo.vim'
     " :Goyo toggle goyo
     " :Goyo! turn off goyo
@@ -132,66 +152,71 @@
     " :Goyo 50%+25%x50%-25%
     " The window can be resized with the usual [count]<CTRL-W> + >, <, +, - keys.
     
-    Plugin 'junegunn/limelight.vim'
-    " Limelight [0.0 ~ 1.0]   Turn Limelight on
-    " Limelight!              Turn Limelight off
-    " Limelight!! [0.0 ~ 1.0] Toggle Limelight
+    " -> LIMELIGHT --------------------------------------------------------- 
+    " Plugin 'junegunn/limelight.vim'
+    " " Limelight [0.0 ~ 1.0]   Turn Limelight on
+    " " Limelight!              Turn Limelight off
+    " " Limelight!! [0.0 ~ 1.0] Toggle Limelight
 
-    " Color name (:help cterm-colors) or ANSI code
-    let g:limelight_conceal_ctermfg = 'gray'
-    let g:limelight_conceal_ctermfg = 240
+    " " Color name (:help cterm-colors) or ANSI code
+    " let g:limelight_conceal_ctermfg = 'gray'
+    " let g:limelight_conceal_ctermfg = 240
     
-    " Color name (:help gui-colors) or RGB color
-    let g:limelight_conceal_guifg = 'DarkGray'
-    let g:limelight_conceal_guifg = '#777777'
+    " " Color name (:help gui-colors) or RGB color
+    " let g:limelight_conceal_guifg = 'DarkGray'
+    " let g:limelight_conceal_guifg = '#777777'
     
-    " Default: 0.5
-    let g:limelight_default_coefficient = 0.7
+    " " Default: 0.5
+    " let g:limelight_default_coefficient = 0.7
     
-    " Number of preceding/following paragraphs to include (default: 0)
-    let g:limelight_paragraph_span = 1
+    " " Number of preceding/following paragraphs to include (default: 0)
+    " let g:limelight_paragraph_span = 1
 
-    " Beginning/end of paragraph
-    "   When there's no empty line between the paragraphs
-    "   and each paragraph starts with indentation
-    " let g:limelight_bop = '^\s'
-    " let g:limelight_eop = '\ze\n^\s'
+    " " Beginning/end of paragraph
+    " "   When there's no empty line between the paragraphs
+    " "   and each paragraph starts with indentation
+    " " let g:limelight_bop = '^\s'
+    " " let g:limelight_eop = '\ze\n^\s'
     
-    " Highlighting priority (default: 10)
-    "   Set it to -1 not to overrule hlsearch
-    " let g:limelight_priority = -1
+    " " Highlighting priority (default: 10)
+    " "   Set it to -1 not to overrule hlsearch
+    " " let g:limelight_priority = -1
 
-    " vimya
+    " -> VIMYA -------------------------------------------------------------
     " http://www.vim.org/scripts/script.php?script_id=2626
     " Connect to maya 
     " tail plugin
     " http://www.vim.org/scripts/script.php?script_id=1714
     " allow maya's script editor log output in vim's Tab
 
+    " -> MISC COLORSCHEME --------------------------------------------------
     " Color theme
     " Plugin 'nightsense/vim-crunchbang'
     " Plugin 'junegunn/seoul256.vim'
 
+    " -> NO POWERLINE ------------------------------------------------------
     " If no Powerline
     " Plugin 'bling/vim-airline'
     " Plugin 'vim-airline/vim-airline'
     " Plugin 'vim-airline/vim-airline-themes'
     " Plugin 'itchyny/lightline.vim'
 
+    " -> TMUX-COMPLETE -----------------------------------------------------
     " Bundle 'wellle/tmux-complete.vim'
     " " add visible word in tmux panes in completion list
     
+    " -> FZF ---------------------------------------------------------------
     " Plugin 'junegunn/fzf.vim'
     
+    " -> VIM-SORT-MOTION ---------------------------------------------------
     " Bundle 'christoomey/vim-sort-motion'
     " gs2j (2 lines)  gsip (in paragraph) gsii (indent) gsi( within parenthesis 
     
+    " -> I3-VIM-SYNTAX -----------------------------------------------------
     " i3 Syntax file
     " http://raw.github.com/PotatoesMaster/i3-vim-syntax/master/syntax/i3.vim
     " Plugin 'PotatoesMaster/i3-vim-syntax'
     
-    " Plugin Tagbar   " Class outline viewer
-    " Plugin Gundo    " Undo tree viewer
 
     call vundle#end()            " required
     filetype plugin indent on    " required
@@ -348,6 +373,7 @@
 
     " set show matching parenthesis
     set showmatch
+    set matchtime=3
     " show search matches as you type
     set incsearch
     " Highlight 
@@ -559,10 +585,6 @@
     
     " toggle paste mode. (disable autoindent etc...)
     set pastetoggle=<F2>
-    
-    " match braket pairs. replace %
-    nnoremap <tab> %
-    vnoremap <tab> %
     
     " Yank to end of line
     nnoremap Y y$
