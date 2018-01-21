@@ -1,7 +1,6 @@
-# vim: set ft=i3:
 
 ###########################################################################
-# >>> ---------------------  I3 CONFIG FILE  ------------------------ <<< #
+# >>>----------------------  I3 CONFIG FILE  -------------------------<<< #
 ###########################################################################
 #
 # Written to work on Linux Mint 18 KDE, 05-2017
@@ -21,7 +20,7 @@
 # Tab = TAB key
 
 ###########################################################################
-# >>> -------------------    GLOBAL SETTINGS   ---------------------- <<< #
+# >>>-------------------    GLOBAL SETTINGS   -----------------------<<< #
 ###########################################################################
 
 # All personal preferences are mentioned below the title personal settings
@@ -32,9 +31,9 @@
 set $mod Mod4
 
 # VARIABLES
-set $term konsole --hide-menubar 
+set $term termite
 set $browser firefox
-set $flash --no-startup-id bash ~/.config/i3/scripts/sh/flash_win.sh
+set $flash --no-startup-id bash ~/.config/Scripts/flash_win.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -48,7 +47,7 @@ bindsym $mod+Return exec $term;focus
 bindsym $mod+Shift+Return exec $term -e tmux -2
 
 ###########################################################################
-# >>> --------------    KEYBOARD and MOUSE    ------------------------<<< #
+# >>>---------------    KEYBOARD and MOUSE    ------------------------<<< #
 ###########################################################################
 
 # QWERTY US International
@@ -73,7 +72,7 @@ exec unclutter
 # bindsym button8 move right
 
 ###########################################################################
-# >>> --------------------   WORKSPACES   ----------------------------<<< #
+# >>>---------------------   WORKSPACES   ----------------------------<<< #
 ###########################################################################
 
 set $ws1 "1"
@@ -112,7 +111,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 ###########################################################################
-# >>> ------------------------   FONTS   -----------------------------<<< #
+# >>>-------------------------   FONTS   -----------------------------<<< #
 ###########################################################################
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -142,7 +141,7 @@ font pango:Inconsolata Bold 14
 
 
 ###########################################################################
-# >>> --------------------   DUAL SCREEN   ---------------------------<<< #
+# >>>---------------------   DUAL SCREEN   ---------------------------<<< #
 ###########################################################################
 
 # setting variables for later use
@@ -170,7 +169,7 @@ workspace $ws3 output $firstMonitor
 workspace $ws10 output $firstMonitor
 
 ###########################################################################
-# >>> ----------------   FOCUS AND MOVE   ----------------------------<<< #
+# >>>-----------------   FOCUS AND MOVE   ----------------------------<<< #
 ###########################################################################
 
 # toggle tiling / floating
@@ -206,7 +205,7 @@ bindsym $mod+Shift+Right move right
 
 
 ###########################################################################
-# >>> -------------------   PERSO FUNC  ------------------------------<<< #
+# >>>--------------------   PERSO FUNC  ------------------------------<<< #
 ##########################################@################################
 
 # Flash current win
@@ -215,7 +214,7 @@ bindsym $mod+BackSpace		exec $flash
 bindsym $mod+Shift+Delete	exec $truemute ; exec $truepause ; workspace lmao ; exec $term -e htop ; exec $term -e ranger
 
 ###########################################################################
-# >>> --------------   TILING PARAMETER   ----------------------------<<< #
+# >>>---------------   TILING PARAMETER   ----------------------------<<< #
 ###########################################################################
 
 # orientation for new workspaces 
@@ -263,7 +262,8 @@ bindsym $mod+Ctrl+h workspace prev
 for_window [urgent=latest] focus
 
 # bar toggle, hide or show 
-bindsym $mod+b bar mode toggle
+# bindsym $mod+b bar mode toggle
+bindsym $mod+b exec --no-startup-id ~/.config/polybar/scripts/hide_bar.sh
 
 # Show Title-Border for current window
 hide_edge_borders both
@@ -274,11 +274,10 @@ bindsym $mod+a focus parent
 bindsym $mod+z focus child
 
 ###########################################################################
-# >>> -----------   FLOATING WINDOWS LIST    -------------------------<<< #
+# >>>------------   FLOATING WINDOWS LIST    -------------------------<<< #
 ###########################################################################
 
-#floating enabled from some programs - find with xprop
-
+#floating enabled from some programs
 for_window [class="Gnome-disks"] floating enable
 for_window [class="Kcalc"] floating enable
 for_window [class="^Skype$"] floating enable
@@ -287,15 +286,25 @@ for_window [class="^Gnome-font-viewer$"] floating enable
 for_window [class="^Gpick$"] floating enable
 #for_window [class="^Vlc$"] floating enable
 #for_window [class="^Spotify$"] floating enable workspace 10
+#for_window [instance="gimp"] floating enable
+for_window [window_role="^gimp-toolbox-color-dialog$"] floating enable
+for_window [instance="variety"] floating enable
 for_window [class="Gnome-system-monitor"] floating enable
 for_window [class="Brasero"] floating enable
 for_window [class="Xfburn"] floating enable
 for_window [class="Xfce4-appfinder"] floating enable
 for_window [class="Wine"] floating enable
 for_window [class="Pavucontrol"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="^Preferences$"] floating enable
+for_window [window_role="setup"] floating enable
+for_window [title="^Terminator Preferences$"] floating enable
 for_window [class="Font-manager"] floating enable
 for_window [class="System-config-printer.py"] floating enable
 for_window [class="Nitrogen"] floating enable
+for_window [title="Copying"] floating enable  
+for_window [title="Deleting"] floating enable  
+for_window [title="Moving"] floating enable
 for_window [class="Unetbootin.elf"] floating enable
 for_window [class="Galculator"] floating enable
 for_window [class="Usb-creator-gtk"] floating enable
@@ -303,51 +312,11 @@ for_window [class="MintUpdate.py"] floating enable
 #for_window [class="Bleachbit"] floating enable
 for_window [class="Hexchat"] floating disable
 
-for_window [title="^Terminator Preferences$"] floating enable
-for_window [title="Copying"] floating enable  
-for_window [title="Deleting"] floating enable  
-for_window [title="Moving"] floating enable
-
-for_window [window_role="pop-up"] floating enable
-for_window [window_role="^Preferences$"] floating enable
-for_window [window_role="setup"] floating enable
-for_window [window_role="^gimp-toolbox-color-dialog$"] floating enable
-
-#for_window [instance="gimp"] floating enable
-for_window [instance="variety"] floating enable
-
-
-for_window [class="Bleachbit"] floating disable
-for_window [class="Blueberry.py"] floating enable
-for_window [class="Brasero"] floating disable
-for_window [class="Galculator"] floating enable
-for_window [class="Gnome-disks"] floating disable
-for_window [class="^Gnome-font-viewer$"] floating enable
-for_window [class="^Gpick$"] floating enable
-for_window [class="Hexchat"] floating disable
-for_window [class="Imagewriter"] floating enable
-for_window [class="Font-manager"] floating enable
-#for_window [class="qt5ct|Lxappearance] floating enable
-for_window [class="Nitrogen"] floating disable
-for_window [class="Pavucontrol"] floating disable
-for_window [class="Peek"] floating enable
-for_window [class="^Skype$"] floating enable
-for_window [class="^Spotify$"] floating disable
-for_window [class="System-config-printer.py"] floating enable
-for_window [class="Unetbootin.elf"] floating enable
-for_window [class="Usb-creator-gtk"] floating enable
-for_window [class="^Vlc$"] floating disable
-for_window [class="Wine"] floating disable
-for_window [class="Xfburn"] floating disable
-for_window [class="Xfce4-appfinder"] floating enable
-for_window [class="Xfce4-settings-manager"] floating disable
-for_window [class="Xfce4-taskmanager"] floating enable
-
 #Popups during fullscreen mode
 popup_during_fullscreen smart
 
 ###########################################################################
-# >>> ----------------   MENU LAUNCHER   -----------------------------<<< #
+# >>>-----------------   MENU LAUNCHER   -----------------------------<<< #
 ###########################################################################
 
 # start ROFI in run mode (a program launcher)
@@ -388,7 +357,7 @@ bindsym $mod+F11 exec --no-startup-id rofi -show run -fullscreen -font "Noto San
 
 
 ###########################################################################
-# >>> -----------   REFRESH RESTART LOG OUT   ------------------------<<< #
+# >>>------------   REFRESH RESTART LOG OUT   ------------------------<<< #
 ###########################################################################
 
 # reload the configuration file
@@ -405,12 +374,12 @@ bindsym Mod1+Ctrl+BackSpace mode "$mode_system"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh lock, mode "default"
-    bindsym e       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh logout, mode "default"
-    bindsym s       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh suspend, mode "default"
-    bindsym h       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh hibernate, mode "default"
-    bindsym r       exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id ~/.config/i3/scripts/sh/i3exit.sh shutdown, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id ~/.config/scripts/i3/i3exit.sh shutdown, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -419,7 +388,7 @@ mode "$mode_system" {
 
 
 ###########################################################################
-# >>> ------------------   ASSIGNATION   -----------------------------<<< #
+# >>>-------------------   ASSIGNATION   -----------------------------<<< #
 ###########################################################################
 
 #assign [class="Firefox"]          → $ws1
@@ -430,7 +399,7 @@ assign [class="dolphin"]          → $ws3
 for_window [class="Spotify"] move to workspace $ws10
 
 ###########################################################################
-# >>> ----------------    STARTUP EXECUTION    -----------------------<<< #
+# >>>-----------------    STARTUP EXECUTION    -----------------------<<< #
 ###########################################################################
 
 # SYSTEM APPLICATION
@@ -456,15 +425,15 @@ exec firefox
 #exec spotify
 #for_window [class="Spotify"] focus
 # conkys info on desktop
-exec ~/.config/i3/scripts/conky/start-conkys.sh
+exec ~/.config/i3/start-conkys.sh
 #exec dunst -config ~/.config/i3/dunstrc
 
 ###########################################################################
-# >>> ------------   SHORTCUTS APPLICATION    ------------------------<<< #
+# >>>-------------   SHORTCUTS APPLICATION    ------------------------<<< #
 ###########################################################################
 
 bindsym $mod+F1 exec firefox
-bindsym $mod+Shift+F1 workspace $ws1; exec firefox; focus
+bindsym $mod+Shift+F1  workspace $ws1; exec firefox; focus
 bindsym $mod+F2 exec $term -e tmux -2
 bindsym $mod+Shift+F2 workspace $ws3; exec $term -e tmux -2; focus
 bindsym $mod+F3 exec $term -e ranger
@@ -478,9 +447,6 @@ bindsym $mod+F6 exec houdini
 bindsym $mod+Shift+F6 workspace $ws6; exec houdini; focus
 bindsym $mod+F7 exec nuke
 bindsym $mod+Shift+F7 workspace $ws7; exec nuke; focus
-
-#catfish
-#bindsym control+mod1+c exec --no-startup-id catfish;focus
 
 #bindsym $mod+F9 exec spotify
 #bindsym $mod+Shift+F9 workspace $ws9; exec spotify;focus
@@ -511,10 +477,10 @@ bindsym $mod+c mode "$mode_conky"
 
 set $mode_conky (q) Kill, (i) i3 shortcuts, (s) system infos, (t) tmux shortcuts
 mode "$mode_conky" {
-    bindsym q exec  ~/.config/i3/scripts/sh/stop_conky.sh;mode "default"
-    bindsym i exec  ~/.config/i3/scripts/sh/system-shortcuts-start.sh;mode "default"
-    bindsym s exec  ~/.config/i3/scripts/sh/system-overview-start.sh;mode "default"
-    bindsym t exec  ~/.config/i3/scripts/sh/tmux-shortcuts-start.sh;mode "default"
+    bindsym q exec  ~/.config/i3/stop_conky.sh;mode "default"
+    bindsym i exec  ~/.config/i3/system-shortcuts-start.sh;mode "default"
+    bindsym s exec  ~/.config/i3/system-overview-start.sh;mode "default"
+    bindsym t exec  ~/.config/i3/tmux-shortcuts-start.sh;mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -523,7 +489,7 @@ mode "$mode_conky" {
 
 
 ###########################################################################
-# >>> -----------------   SCREENSHOT    ------------------------------<<< #
+# >>>------------------   SCREENSHOT    ------------------------------<<< #
 ###########################################################################
 
 bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
@@ -531,7 +497,7 @@ bindsym Control+Print exec gnome-screenshot -i
 
 
 ###########################################################################
-# >>> -----------    VARIETY for WALLPAPERS     ----------------------<<< #
+# >>>------------    VARIETY for WALLPAPERS     ----------------------<<< #
 ###########################################################################
 
 #Variety keybindings
@@ -546,7 +512,7 @@ bindsym Control+mod1+f exec variety -f
 
 
 ###########################################################################
-# >>> -------------------   AUDIO   ----------------------------------<<< #
+# >>>--------------------   AUDIO   ----------------------------------<<< #
 ###########################################################################
 
 bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master '5%+'"
@@ -559,7 +525,7 @@ bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer
 
 
 ###########################################################################
-# >>> ---------------    SCRATCHPAD    -------------------------------<<< #
+# >>>----------------    SCRATCHPAD    -------------------------------<<< #
 ###########################################################################
 
 #bindsym $mod+Control+0 [con_mark="music"] scratchpad show
@@ -580,7 +546,7 @@ bindsym $mod+u      [instance="dropdown"] scratchpad show
 
 
 ###########################################################################
-# >>> -------------------    BAR    ----------------------------------<<< #
+# >>>--------------------    BAR    ----------------------------------<<< #
 ###########################################################################
 
 #bar {
@@ -588,55 +554,56 @@ bindsym $mod+u      [instance="dropdown"] scratchpad show
 #    height 25
 #}
 
-bar {
-
-	# type status_command i3status without the config file and 
-    # you will get the standard i3status bar
-    # this is the standard statusbar with my personal settings
-	#status_command i3status -c ~/.config/i3/i3status.conf
-
-    # https://github.com/vivien/i3blocks
-    # another way to provide text in the statusbar
-    # step 10 of https://github.com/erikdubois/i3-on-Linux-Mint-18-Cinnamon/tree/master/installation
-    # put hastag in front if not installed
-    status_command i3blocks -c ~/.config/i3/i3blocks.conf
-
-    # You can also replace the istatus bar with a conky
-    # be sure to install conky
-    # step 10 folder conky
-    # font awesome should be installed script + font
-    # start-conky-i3statusbar.sh is started and conky will follow
-    # documentation : https://i3wm.org/docs/user-contributed/conky-i3bar.html
-    # conky configuration is in conky-i3statusbar
-	# status_command ~/.config/i3/start-conky-i3statusbar.sh
-
-	
-	height 25
-    workspace_buttons yes
-    
-#     colors {
-#             background #201f1f   
-#             statusline #201f1f  
-#             separator #666666
-#             #                     border  backgr. text
-#             focused_workspace     #a9a9a9 #920c0c #a9a9a9
-#             active_workspace      #a9a9a9 #5f676a #a9a9a9
-#             inactive_workspace    #a9a9a9 #5f676a #a9a9a9
-#             urgent_workspace      #4A4A4A #4A4A4A #a9a9a9
-#             }
-#     }
-    colors {
-            background  #10212b  
-            # background  #262c32  
-            statusline  #8295a9    
-            separator   #a1b5cb  
-            #                     border  backgr. text
-            focused_workspace     #3b6676 #274754 #97cce1 
-            active_workspace      #1a1b1c #274754 #757e86 
-            inactive_workspace    #1a1b1c #193445 #597085  
-            urgent_workspace      #a9a9a9 #11607v #d4dde8
-            }
-    }
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+###bar {
+###
+###	# type status_command i3status without the config file and 
+###    # you will get the standard i3status bar
+###    # this is the standard statusbar with my personal settings
+###	#status_command i3status -c ~/.config/i3/i3status.conf
+###
+###    # https://github.com/vivien/i3blocks
+###    # another way to provide text in the statusbar
+###    # step 10 of https://github.com/erikdubois/i3-on-Linux-Mint-18-Cinnamon/tree/master/installation
+###    # put hastag in front if not installed
+###    status_command i3blocks -c ~/.config/i3/i3blocks.conf
+###
+###    # You can also replace the istatus bar with a conky
+###    # be sure to install conky
+###    # step 10 folder conky
+###    # font awesome should be installed script + font
+###    # start-conky-i3statusbar.sh is started and conky will follow
+###    # documentation : https://i3wm.org/docs/user-contributed/conky-i3bar.html
+###    # conky configuration is in conky-i3statusbar
+###	# status_command ~/.config/i3/start-conky-i3statusbar.sh
+###
+###	
+###	height 25
+###    workspace_buttons yes
+###    
+####     colors {
+####             background #201f1f   
+####             statusline #201f1f  
+####             separator #666666
+####             #                     border  backgr. text
+####             focused_workspace     #a9a9a9 #920c0c #a9a9a9
+####             active_workspace      #a9a9a9 #5f676a #a9a9a9
+####             inactive_workspace    #a9a9a9 #5f676a #a9a9a9
+####             urgent_workspace      #4A4A4A #4A4A4A #a9a9a9
+####             }
+####     }
+###    colors {
+###            background  #10212b  
+###            # background  #262c32  
+###            statusline  #8295a9    
+###            separator   #a1b5cb  
+###            #                     border  backgr. text
+###            focused_workspace     #3b6676 #274754 #97cce1 
+###            active_workspace      #1a1b1c #274754 #757e86 
+###            inactive_workspace    #1a1b1c #193445 #597085  
+###            urgent_workspace      #a9a9a9 #11607v #d4dde8
+###            }
+###    }
 # 3a4046
 # 
 # DarkGrey background with white text - not focus grey background - black text
@@ -650,7 +617,7 @@ bar {
 # client.urgent           #4A4A4A #4A4A4A #f7f7f7 #4A4A4A
 
 ###########################################################################
-# >>> --------------------   RESIZE   --------------------------------<<< #
+# >>>---------------------   RESIZE   --------------------------------<<< #
 ###########################################################################
 
 bindsym $mod+Shift+y		resize shrink width 2 px or 2 ppt
@@ -658,10 +625,10 @@ bindsym $mod+Shift+u		resize shrink height 5 px or 5 ppt
 bindsym $mod+Shift+i		resize grow height 5 px or 5 ppt
 bindsym $mod+Shift+o		resize grow width 2 px or 2 ppt
 
-bindsym $mod+Ctrl+Shift+y	resize shrink width  15 px or 15 ppt
-bindsym $mod+Ctrl+Shift+u	resize shrink height 20 px or 20 ppt
-bindsym $mod+Ctrl+Shift+i	resize grow height   20 px or 20 ppt
-bindsym $mod+Ctrl+Shift+o	resize grow width    15 px or 15 ppt
+bindsym $mod+Ctrl+Shift+y		resize shrink width  15 px or 15 ppt
+bindsym $mod+Ctrl+Shift+u		resize shrink height 20 px or 20 ppt
+bindsym $mod+Ctrl+Shift+i		resize grow height   20 px or 20 ppt
+bindsym $mod+Ctrl+Shift+o		resize grow width    15 px or 15 ppt
 
 bindsym $mod+plus			gaps inner current plus 5
 bindsym $mod+minus			gaps inner current minus 5
@@ -706,7 +673,7 @@ bindsym $mod+r mode "resize"
 
 
 ###########################################################################
-# >>> -------------  I 3  G A P S  N E X T   -------------------------<<< #
+# >>>--------------  I 3  G A P S  N E X T   -------------------------<<< #
 ###########################################################################
 
 # Settings for I3 next gap git
@@ -722,7 +689,7 @@ gaps outer 5
 bindsym $mod+Ctrl+r    gaps inner all set 15; gaps outer all set 5
 
 ###########################################################################
-# >>> -------------       I3 GAPS CHANGE     -------------------------<<< #
+# >>>--------------       I3 GAPS CHANGE     -------------------------<<< #
 ###########################################################################
 
 set $mode_gaps Gaps: (o) outer, (i) inner, (f) full, (d) default, (g) gaps
@@ -776,7 +743,7 @@ mode "$mode_gaps_outer" {
 }
 
 ###########################################################################
-# >>> -------------       C O M P T O N      -------------------------<<< #
+# >>>--------------       C O M P T O N      -------------------------<<< #
 ###########################################################################
 
 #if you want transparency on non-focused windows
@@ -784,7 +751,7 @@ exec_always compton --config ~/.config/i3/compton.conf
 
 
 ###########################################################################
-# >>> -------------    BAR APPEARANCE ARCHIVE     --------------------<<< #
+# >>>--------------    BAR APPEARANCE ARCHIVE     --------------------<<< #
 ###########################################################################
 
 # Orange background with black text - not focus grey background - white text
