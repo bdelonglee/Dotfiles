@@ -308,6 +308,10 @@ eval "$(tmuxifier init -)"
 # EOF
 
 
-if [ -f ~/.bashrc_alias ]; then
-    source ~/.bashrc_alias
+if [ -f ~/.zshrc_alias ]; then
+    source ~/.zshrc_alias
+fi
+
+if [ -f ~/.common_alias ]; then
+    source ~/.common_alias
 fi

@@ -27,16 +27,16 @@
     " See `:echo g:airline_theme_map` for some more choices
     " Default in terminal vim is 'dark'
 
-    " if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
-    "     if !exists('g:airline_theme')
-    " 	let g:airline_theme = 'powerlineish'
-    "     endif
-    "     if !exists('g:airline_powerline_fonts')
-    " 	" Use the default set of separators with a few customizations
-    " 	let g:airline_left_sep='›'  " Slightly fancier than '>'
-    " 	let g:airline_right_sep='‹' " Slightly fancier than '<'
-    "     endif
-    " endif
+    if isdirectory(expand("~/.vim/bundle/vim-airline-themes/"))
+        if !exists('g:airline_theme')
+    	let g:airline_theme = 'powerlineish'
+        endif
+        if !exists('g:airline_powerline_fonts')
+    	" Use the default set of separators with a few customizations
+    	let g:airline_left_sep='›'  " Slightly fancier than '>'
+    	let g:airline_right_sep='‹' " Slightly fancier than '<'
+        endif
+    endif
 
 " ############################################################################
 " # >>> -----------               VUNDLE                   ------------- <<< #
@@ -59,7 +59,7 @@
 
     " -> VIM AIRLINE -------------------------------------------------------
     " Vim airline light
-    "Plugin 'itchyny/lightline.vim'
+    Plugin 'itchyny/lightline.vim'
 
     " -> VIM-EXPAND-REGION -------------------------------------------------
     " + - expand shrink visual selection
@@ -67,7 +67,7 @@
 
     " -> MRU ---------------------------------------------------------------
     " Most Recently Used  (MRU)
-    Plugin 'yegppan/mru'
+    Plugin 'yegappan/mru'
 
     " -> BUFEXPLORER -------------------------------------------------------
     " Buffers explorer leader be/bs/bv    f F v V a t
@@ -102,10 +102,10 @@
     " show buffers in splitted window when use " or @
     
     " -> INDENTLINE --------------------------------------------------------
-    Bundle 'Yggdroot/indentLine'
+    " Bundle 'Yggdroot/indentLine'
     " trace vertical lines to show indentation level
     " let g:indentLine_char = '|'
-    let g:indentLine_color_term = 239
+    " let g:indentLine_color_term = 239
     
     " -> VIM-ESAYMOTION ----------------------------------------------------
     Plugin 'easymotion/vim-easymotion'
@@ -270,7 +270,8 @@
     " color crunchbang
     " set background=dark
     " color solarized
-    colorscheme solarized8_dark_high
+    " colorscheme solarized8_dark_high
+    colorscheme desert
     " colorscheme wal
     
     " Use the same symbols as TextMate for tabstops and EOLs
@@ -289,6 +290,7 @@
     set textwidth=79
     set formatoptions=qrn1
     set colorcolumn=85
+    highlight ColorColumn ctermbg=238 guibg=lightgrey
     
     " Show partial commands in the last line of the screen
     set showcmd
@@ -299,7 +301,7 @@
     
     " Cursorline Settings
     set cursorline
-    "highlight CursorLine term=bold cterm=bold ctermbg=Black guibg=Black ctermfg=NONE
+    highlight CursorLine term=bold cterm=bold ctermbg=Black guibg=Black ctermfg=NONE
     "highlight CursorLineNR ctermbg=235 ctermfg=White cterm=bold
     "autocmd InsertLeave * :highlight CursorLine cterm=bold ctermbg=Black ctermfg=NONE term=bold
     "autocmd InsertEnter * :highlight CursorLine cterm=NONE ctermbg=Black ctermfg=NONE
@@ -569,9 +571,10 @@
     nnoremap <leader>eb :e $MYVIMRC<cr>
     
     " Toggle Numbers Relative / Abs
-    nnoremap <Leader>n :call NumberToggleRelative()<cr>
-    nnoremap <Leader><S-n> :call NumberToggleVisibility()<cr>
-    nmap <leader><C-N>n :call NumberToggleVisibility()<cr>
+    nnoremap <Leader>n :call NumberToggleMode()<cr>
+    highlight LineNr ctermfg=grey
+    " nnoremap <Leader><S-n> :call NumberToggleVisibility()<cr>
+    " nmap <leader><C-N>n :call NumberToggleVisibility()<cr>
     
     " Buffers Next, Previous, Delete {{{
     nmap gN ;enew<cr>
@@ -653,10 +656,11 @@
 " TOGGLE NUMBERS -------------------------------------------------------------
 
     " Toggle Numbers: Relative / Abs
-    autocmd InsertEnter * :set number
-    autocmd InsertEnter * :set norelativenumber
-    autocmd InsertLeave * :set number
-    autocmd InsertLeave * :set relativenumber
+    augroup numbertoggle
+      autocmd!
+      autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+      autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+    augroup END
 
 " ----------------------------------------------------------------------------
 " AUTO RELOAD .vimrc On change >> don't work ---------------------------------
@@ -683,25 +687,24 @@
 " ----------------------------------------------------------------------------
 " TOGGLE NUMBERS: Relative / Abs ---------------------------------------------
 
-    function! NumberToggleRelative()
+    " Toggle Liner Number Mode
+    function! NumberToggleMode()
         if(&relativenumber == 1)&& (&number == 1)
             set number
             set norelativenumber
         else
-            set relativenumber
+            if(&relativenumber == 0)&& (&number == 1)
+                set nonumber
+                set norelativenumber
+            else
+                if(&relativenumber == 0)&& (&number == 0)
+                    set number
+                    set relativenumber
+                endif
+            endif
         endif
     endfunc
     
-    function! NumberToggleVisibility()
-        if(&relativenumber == 1)|| (&number == 1)
-            set nonumber
-            set norelativenumber
-        else
-            set number
-            set relativenumber
-        endif
-    endfunc
-
     " Returns true if paste mode is enabled
     function! HasPaste()
         if &paste

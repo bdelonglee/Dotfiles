@@ -2,7 +2,7 @@
 alias h='cd ~'
 alias d='cd ~/Documents'
 alias D='cd ~/Downloads'
-alias gda='cd ~/Datas'
+alias gda-='cd ~/Datas'
 alias gdae='cd ~/Datas/env'
 alias gdam='cd ~/Datas/misc_tools'
 alias gdar='cd ~/Datas/repositories'

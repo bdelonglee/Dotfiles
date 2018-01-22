@@ -201,3 +201,7 @@ eval "$(tmuxifier init -)"
 if [ -f ~/.bashrc_alias ]; then
     source ~/.bashrc_alias
 fi
+
+if [ -f ~/.common_alias ]; then
+    source ~/.common_alias
+fi
