@@ -38,17 +38,32 @@ format-secondary = #00FF00
 
 [colors]
 ; Nord theme ============
-background = #011620
+; background = ${xrdb:color0}
+background = #01162000
+; background = #011620
 ;background = #2F343F 
-foreground = #74B2CC
-foreground-alt = #1A5367
+background-alt = #00FF00
+background-alt2 = #0B2E46
+foreground = ${xrdb:color7}
+; foreground = #74B2CC
+foreground-alt = #1D5C72
+foreground-alt2 = #216B84
+
+primary = #FF0000
+secondary = #00FF00
+
+underline-1 = #2F9AD0
+underline-2 = #2F72D0
+underline-3 = #2F4AD0
+underline-4 = #3D2FD0
+underline-5 = #652FD0
+underline-6 = #8D2FD0
+
 alert = #d08770
+
 volume-min = #a3be8c
 volume-med = #ebcb8b
 volume-max = #bf616a
-primary = #FF0000
-secondary = #00FF00
-background-alt = #00FF00
 ; =======================
 
 ; INTRCPTR theme ============
@@ -114,7 +129,7 @@ border-color = #000000
 ; border-color = #00000000
 ;border-left-size = 25
 ;border-right-size = 25
-border-top-size = 1
+border-top-size = 0
 ;border-bottom-size = 25
 
 padding-left = 0
@@ -141,7 +156,8 @@ font-2 = NotoMono-Regular: size=10;0
 
 modules-left = i3
 modules-center = xwindow
-modules-right =  xkeyboard compton filesystemIcon1 cpuIcon1 memoryIcon1 date
+modules-right =  xkeyboard compton filesystemIcon1 cpuIcon1 memoryIcon1 aur-updates pacman-updates date
+; 
 ;modules-right = filesystem xbacklight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 ; separator = |
@@ -152,6 +168,7 @@ tray-padding = 2
 tray-detached = false
 ;tray-maxsize = 20
 ;tray-transparent = false
+;tray-foreground = ${colors.foreground}
 ;tray-background = ${colors.background}
 ;tray-offset-x = 0
 ;tray-offset-y = 0
@@ -263,7 +280,7 @@ label-mode-background = ${colors.primary}
 ; focused = Active workspace on focused monitor
 ; label-focused = %icon% %name%
 label-focused = %index%
-label-focused-background = #0B2E46
+label-focused-background = ${colors.background-alt2}
 ; ${colors.background} 
 ; label-focused-foreground = #02597B
 label-focused-foreground = ${colors.foreground}
@@ -314,19 +331,19 @@ format-background = ${colors.background}
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
-label-foreground = ${colors.foreground-alt}
+label-foreground = ${colors.foreground-alt2}
 
 # ------------------------------------------------------------------------------
 [module/aur-updates]
 type = custom/script
 exec = cower -u | wc -l
 interval = 1000
-label = Aur: %output%
+label = Aur %output%
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
-format-prefix = "  "
-format-prefix-foreground = #FFBB00
-format-underline = #FFBB00
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${colors.underline-5}
 
 # ------------------------------------------------------------------------------
 [module/compton]
@@ -386,7 +403,7 @@ interval = 2
 format-prefix = ""
 ;format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #6A32E2
+format-underline = ${colors.underline-2}
 
 ; format-padding = 2
 
@@ -595,9 +612,9 @@ interval = 1000
 label = Repo: %output%
 format-foreground = ${colors.foreground}
 format-background = ${colors.background}
-format-prefix = "  "
-format-prefix-foreground = #FFBB00
-format-underline = #FFBB00
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${colors.underline-6}
 
 # ------------------------------------------------------------------------------
 [module/filesystem]
@@ -625,7 +642,8 @@ format-mounted-prefix = " "
 ; format-mounted-prefix = " "
 ; format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${colors.foreground-alt}
-format-mounted-underline = #3251E2
+format-mounted-underline = ${colors.underline-1}
+; format-mounted-underline = #3251E2
 ;
 label-mounted =  %percentage_used%%
 ;label-mounted = %{f#0a81f5}%mountpoint%%{f-} %percentage_used%%
@@ -720,7 +738,7 @@ type = internal/memory
 interval = 2  
 format-prefix = "MEM "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+format-underline = ${colors.underline-3}
 label = %percentage_used%%
 
 # ------------------------------------------------------------------------------
@@ -729,7 +747,7 @@ type = internal/memory
 interval = 2  
 format-prefix = " " 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #C232E2
+format-underline = ${colors.underline-3}
 label = %percentage_used%%
 
 # ------------------------------------------------------------------------------
@@ -860,14 +878,16 @@ interval = 5
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
 date = %Y-%m-%d
 date-alt = " %d-%m-%Y"
+format-date = ${colors.foreground-alt2}
 time = %H:%M
 time-alt = %H:%M
+format-time = ${colors.foreground}
 ; format-prefix = " "
 ; format-prefix-foreground = #c1941a
 ; format-underline = #c1941a
 ; format-foreground = ${colors.foreground}
 ; format-background = ${colors.background}
-label = %{F#1A5367}%date% %{F-}%time%
+label = %{F#216B84}%date% %{F-}%time%
 ;label =  %{F#666}%date% %{F-}  %{F-} %time%
 
 
