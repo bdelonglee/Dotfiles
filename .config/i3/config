@@ -325,6 +325,8 @@ popup_during_fullscreen smart
 
 # start ROFI in run mode (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+w exec --no-startup-id rofi -combi-modi window -show combi
+bindsym $mod+v exec --no-startup-id /home/ben/git/Dotfiles/.config/Scripts/rofi/rofi-bangs.sh, mode "default"
 # bindsym $mod+d exec dmenu_run -fn 'System San Fransico Display:bold:pixelsize=18' */ 
 
 # start ROFI in window mod
