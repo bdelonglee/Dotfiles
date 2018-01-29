@@ -6,8 +6,8 @@
 # Backup .Xressources 
 ###################################################
 
-REAL_NAME=".Xressources"
-BKP_DIR_NAME="xressources"
+REAL_NAME=".Xresources"
+BKP_DIR_NAME="xresources"
 BKP_ROOT=".bkp_dotfiles"
 
 
