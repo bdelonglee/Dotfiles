@@ -15,12 +15,12 @@ declare -A COMMANDS
 # List of defined 'bangs'
 
 # launch programs
-COMMANDS["apps"]="rofi -combi-modi window,drun -show combi"
-LABELS["apps"]=""
+# COMMANDS["apps"]="rofi -combi-modi window,drun -show combi"
+# LABELS["apps"]=""
 
 # open bookmarks
-COMMANDS["bookmarks"]="~/.scripts/rofi-scripts-collection/rofi-surfraw-bookmarks.sh"
-LABELS["bookmarks"]=""
+# COMMANDS["bookmarks"]="~/.scripts/rofi-scripts-collection/rofi-surfraw-bookmarks.sh"
+# LABELS["bookmarks"]=""
 
 # search local files
 
@@ -30,6 +30,11 @@ LABELS["locate"]=""
 # open custom web searches
 COMMANDS["websearch"]="~/.scripts/rofi-scripts-collection/rofi-surfraw-websearch.sh"
 LABELS["websearch"]=""
+
+# greenclip clipboard history
+# source: https://github.com/erebe/greenclip
+COMMANDS["clipboard"]='rofi -modi "clipboard:greenclip print" -show clipboard'
+LABELS["clipboard"]=""
 
 # show clipboard history
 # source: https://bitbucket.org/pandozer/rofi-clipboard-manager/overview
@@ -70,7 +75,8 @@ function print_menu()
 function start()
 {
     # print_menu | rofi -dmenu -p "?=>" 
-    print_menu | sort | rofi -dmenu -mesg ">>> launch your collection of rofi scripts" -i -p "rofi-bangs: "
+    print_menu | sort | rofi -eh 1 -dmenu -i -p "Bangs: "
+    # print_menu | sort | rofi -eh 1 -dmenu -mesg ">>> launch your collection of rofi scripts" -i -p "rofi-bangs: "
 
 }
 

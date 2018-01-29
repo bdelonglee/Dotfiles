@@ -15,5 +15,5 @@
 # requirements: rofi mlocate
 # playlist: rofi      https://www.youtube.com/playlist?list=PLqv94xWU9zZ0LVP1SEFQsLEYjZC_SUB3m
 
-xdg-open "$(locate home media | rofi -threads 0 -width 100 -dmenu -i -p "locate:")"
+xdg-open "$(locate home media | rofi -threads 0 -width 50 -dmenu -i -p "locate:")"
 
