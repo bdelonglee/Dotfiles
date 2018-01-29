@@ -193,6 +193,7 @@
     " Color theme
     " Plugin 'nightsense/vim-crunchbang'
     " Plugin 'junegunn/seoul256.vim'
+    Plugin 'dylanaraps/wal.vim'
 
     " -> NO POWERLINE ------------------------------------------------------
     " If no Powerline
@@ -206,7 +207,9 @@
     " " add visible word in tmux panes in completion list
     
     " -> FZF ---------------------------------------------------------------
-    " Plugin 'junegunn/fzf.vim'
+    Plugin 'junegunn/fzf.vim'
+    " will clone fzf in ~/.fzf and run install script
+    " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     
     " -> VIM-SORT-MOTION ---------------------------------------------------
     " Bundle 'christoomey/vim-sort-motion'
@@ -228,7 +231,7 @@
 " ############################################################################
 
     set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-    " set rtp+=~/.fzf
+    set rtp+=~/.fzf
 
 " ############################################################################
 " # >>> -----------               OPTIONS                  ------------- <<< #
@@ -271,8 +274,8 @@
     " set background=dark
     " color solarized
     " colorscheme solarized8_dark_high
-    colorscheme desert
-    " colorscheme wal
+    " colorscheme desert
+    colorscheme wal
     
     " Use the same symbols as TextMate for tabstops and EOLs
     set listchars=tab:▸\ ,eol:¬,trail:.,nbsp:⎵
@@ -687,7 +690,7 @@
 " ----------------------------------------------------------------------------
 " TOGGLE NUMBERS: Relative / Abs ---------------------------------------------
 
-    " Toggle Liner Number Mode
+    " Toggle Liner Number Mode -----------------------------------------------
     function! NumberToggleMode()
         if(&relativenumber == 1)&& (&number == 1)
             set number
@@ -705,7 +708,7 @@
         endif
     endfunc
     
-    " Returns true if paste mode is enabled
+    " Returns true if paste mode is enabled ----------------------------------
     function! HasPaste()
         if &paste
             return 'PASTE MODE  '
@@ -713,7 +716,7 @@
         return ''
     endfunction
 
-    " Visual selection search with * or #
+    " Visual selection search with * or # ------------------------------------
     function! VisualSelection(direction, extra_filter) range
         let l:saved_reg = @"
         execute "normal! vgvy"
@@ -731,7 +734,7 @@
         let @" = l:saved_reg
     endfunction
 
-    " Don't close window, when deleting a buffer
+    " Don't close window, when deleting a buffer -----------------------------
     command! Bclose call <SID>BufcloseCloseIt()
     function! <SID>BufcloseCloseIt()
        let l:currentBufNum = bufnr("%")

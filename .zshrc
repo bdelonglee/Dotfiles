@@ -2,19 +2,20 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/ben/.oh-my-zsh
+  export ZSH=/usr/share/oh-my-zsh
+  #export ZSH=/home/ben/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="dieter"
+ZSH_THEME="random"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -37,7 +38,7 @@ ZSH_THEME="dieter"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -63,9 +64,10 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
+export EDITOR='vim'
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
@@ -110,7 +112,6 @@ export VISUAL
 EDITOR=/usr/bin/vim
 export EDITOR
 
-alias la=ls -la
 ###########################################################
 
 # enable vim mode on commmand line
@@ -146,23 +147,23 @@ bindkey -M viins '^s' history-incremental-search-backward
 bindkey -M vicmd '^s' history-incremental-search-backward
 
 
-# The following binds them to key combinations such as i" a( in both the visual and viopp keymaps.
-autoload -U select-bracketed select-quoted
-zle -N select-bracketed
-zle -N select-quoted
-  for km in viopp visual; do
-  bindkey -M $km -- '-' vi-up-line-or-history
-  for c in {a,i}"${(s..):-\'\"\`\|,./:;-=+@}"; do
-    bindkey -M $km $c select-quoted
-  done
-  for c in {a,i}${(s..):-'()[]{}<>bB'}; do
-    bindkey -M $km $c select-bracketed
-  done
-done
+## The following binds them to key combinations such as i" a( in both the visual and viopp keymaps.
+#autoload -U select-bracketed select-quoted
+#zle -N select-bracketed
+##zle -N select-quoted
+#  for km in viopp visual; do
+#  bindkey -M $km -- '-' vi-up-line-or-history
+##  for c in {a,i}"${(s..):-\'\"\`\|,./:;-=+@}"; do
+##    bindkey -M $km $c select-quoted
+##  done
+#  for c in {a,i}${(s..):-'()[]{}<>bB'}; do
+#    bindkey -M $km $c select-bracketed
+#  done
+#done
 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
+# if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+#         source /etc/profile.d/vte.sh
+# fi
 
 
 ###########################################################
@@ -172,7 +173,8 @@ fi
 # Import colorscheme from 'wal'
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
-(wal -r &)
+# (wal -r -t &)
+cat /home/ben/.cache/wal/sequences
 
 ###########################################################
 # POWERLINE
@@ -190,7 +192,7 @@ fi
 # POWERLINE_BASH_CONTINUATION=1
 # POWERLINE_BASH_SELECT=1
 
-. ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+# . ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
 #if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
 #    source ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
@@ -223,95 +225,12 @@ alias o='a -e xdg-open' # quick opening files with xdg-open
 # TMUXIFIER -----------------------------------------------
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 export TMUXIFIER_TMUX_OPTS="-2"
-eval "$(tmuxifier init -)"
-
-# cat << "EOF"
-# ____/\\\\\\\\\___________/\\\\\_______/\\\\\\\\\\\\_____/\\\\\\\\\\\\\\\_______/\\\\\_________________/\\\\\\\\\\\\\\\__/\\\_______/\\\_        
-#  __/\\\///////\\\_______/\\\///\\\____\/\\\////////\\\__\/\\\///////////______/\\\///\\\______________\/\\\///////////__\///\\\___/\\\/__       
-#   _\/\\\_____\/\\\_____/\\\/__\///\\\__\/\\\______\//\\\_\/\\\_______________/\\\/__\///\\\____________\/\\\_______________\///\\\\\\/____      
-#    _\/\\\\\\\\\\\/_____/\\\______\//\\\_\/\\\_______\/\\\_\/\\\\\\\\\\\______/\\\______\//\\\___________\/\\\\\\\\\\\_________\//\\\\______     
-#     _\/\\\//////\\\____\/\\\_______\/\\\_\/\\\_______\/\\\_\/\\\///////______\/\\\_______\/\\\___________\/\\\///////___________\/\\\\______    
-#      _\/\\\____\//\\\___\//\\\______/\\\__\/\\\_______\/\\\_\/\\\_____________\//\\\______/\\\____________\/\\\__________________/\\\\\\_____   
-#       _\/\\\_____\//\\\___\///\\\__/\\\____\/\\\_______/\\\__\/\\\______________\///\\\__/\\\______________\/\\\________________/\\\////\\\___  
-#        _\/\\\______\//\\\____\///\\\\\/_____\/\\\\\\\\\\\\/___\/\\\\\\\\\\\\\\\____\///\\\\\/_______________\/\\\______________/\\\/___\///\\\_ 
-#         _\///________\///_______\/////_______\////////////_____\///////////////_______\/////_________________\///______________\///_______\///__
-# EOF
-
-# cat << "EOF"
-                                                                         
-# @@@@@@@    @@@@@@   @@@@@@@   @@@@@@@@   @@@@@@      @@@@@@@@  @@@  @@@  
-# @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@  @@@@@@@@     @@@@@@@@  @@@  @@@  
-# @@!  @@@  @@!  @@@  @@!  @@@  @@!       @@!  @@@     @@!       @@!  !@@  
-# !@!  @!@  !@!  @!@  !@!  @!@  !@!       !@!  @!@     !@!       !@!  @!!  
-# @!@!!@!   @!@  !@!  @!@  !@!  @!!!:!    @!@  !@!     @!!!:!     !@@!@!   
-# !!@!@!    !@!  !!!  !@!  !!!  !!!!!:    !@!  !!!     !!!!!:      @!!!    
-# !!: :!!   !!:  !!!  !!:  !!!  !!:       !!:  !!!     !!:        !: :!!   
-# :!:  !:!  :!:  !:!  :!:  !:!  :!:       :!:  !:!     :!:       :!:  !:!  
-# ::   :::  ::::: ::   :::: ::   :: ::::  ::::: ::      ::        ::  :::  
-#  :   : :   : :  :   :: :  :   : :: ::    : :  :       :         :   ::   
-
-# EOF
-
-# cat << "EOF"
-# ................................................................................
-# ................................ ..... ...   .MM...... .. .. . .........  ...  .
-#  . ....      .                               .MM. .                             
-# ........                                     .ZM.                               
-# .... .                                       .MM.      ..                       
-# ......                                      .MMD.   .,O                         
-# .. ... .                            .MMMMM...MM+.    . M     .                  
-#                                   .  MMMMMMDNMM      ..M.                       
-#  .                   .          ...MMMMMMMMNMMM.   ....M.        .    .         
-#                       .        .  . .MMMMMOMMMM..   ..MM.                       
-#                                 .    .DMMDMMMM.     .8MN :7I.. .               .
-#                                 .    =MMONMMMM7     .MMMMMMMMMM:.               
-#             ..                      .~MMMMMMMM8  ..7MMMMMMMMMMMMM..  . .        
-#  ..                                  MMNMMMMMMI...MMMMMMMMMMMMMMMM,...MM.       
-#                                      M8MOMMMM7M .MMMMMMMMMMMMMMMMMM.DMMMM.      
-#                              .      .OOMOMMMMMM:MMMMMMMMMMMMMMMMMMMMMMMMM..   . 
-#                                     .MMMMMMMMM~DMMMMMMMMMMMMMMMMMMMMMMM7MM.     
-#                   .                 .MMMMMMMMZMMMMMMMMMMMMMMMMMMMMMMMMM. MM .   
-#                   ..   .            ~MMMMDMMMMMMMM$MMMMMMMMMMMMMMMMMMM    MMMM..
-#                                     MMMMMMMMMMMMMMMM=MMMMMMMMMMMMMMMMM.   ZMMM..
-#                                   .~M.MMMM7MMMMMMMMMMMM.MMMMMMMMMMMM7MI... ZMM?.
-#                                 .. MM MMDMMMMMMMMMMMMMMM.MMMMMMMM~...MM=.   ....
-#                                 . MMM~MMMMMMM~MMMMMMMMMMMMZ......  . MMMM...    
-#                .                 .MM.MMMOMMMMDNMMMMMMMMMMMMMMM     .. MMMN.     
-#                       .     ..  . . NMMMMMMMMMMMZMMMMMMMMMMMM..     . ..M:.  .  
-#                      .M    .MMMMMMMMMMMMMMMMIMMMMMD7MMMMMMMM. .      .      .. .
-#                      .DM. .MMMMMMMMMMMMMMMMMMDMMMMMMMMMZ~~==      .  . . .      
-#                     . .MMIMMMMMMMMMMMMMMMIMMMNMMMMMMMMMMMMM..     .  ..         
-#                     ...MM.MMMMMMMMMMMMMMMNMMMM~MMMMMMMMMMM                      
-#                  ..:MMMMM?MMMMMMMMMMMMMMMMMMMMM.MMMMMMMMMD  
-#               ..MMMMMMMMMMMZMMMMMMMMMMMMMDMMMMMMNMMMMMMMM .
-#               :MMMMMMMMMMMMMMM~MMMMMMMMMM:MMMMMMMDMMMMMMN 
-#            . MMMMM=MMMMMMMMMMMMMMM7+=INMMMMMMMMMM7MMMMMM~
-#         ...MMMMMMMMMMMMMMMMMMMMMMMMMMMMM~MMMMMMMMMOMMM8.
-#         .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.M~. 
-#         .NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM,NMMM. 
-#          .MMMMMMMMMMMMMMMMMIMMMMMMMMMMMMMMMMMMMMMMM..
-#         .  ..MMMMMMMMMMMMM88MMMMMMMM8MMMMMNMMMMM..  
-#             ...    .....NMMMMMMMMMM?MMMMMMMMMM..   
-#                       .   ....+MMMM~MMMMM.MMM,.   
-#                        .    .8MMMMM7MMMMO88$. . .
-#                             +MM,...8MMMM.       
-#                             .MM.  .MMMMM. . ...
-#                           . .MM.  .MMMM.   .  
-#                             ZMM   .MMM... .  
-#         .                  .MMMM. .MM.      
-#                            DMMM, .MM=.     
-#                           .MM8.. 7MM  .  
-#                             ..  .MMM..  
-#                                .MMMM.. 
-#                               .MMMM,. 
-#          .                   .:MZ... 
-# EOF
+# eval "$(tmuxifier init -)"
 
 
 if [ -f ~/.zshrc_alias ]; then
     source ~/.zshrc_alias
 fi
-
 if [ -f ~/.common_alias ]; then
     source ~/.common_alias
 fi
