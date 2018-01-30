@@ -39,6 +39,19 @@
     endif
 
 " ############################################################################
+" # >>> -----------               RUNTIME PATH             ------------- <<< #
+" ############################################################################
+
+    " set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+    set rtp+=~/.fzf
+
+    " runtime path for CtrlP
+    set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/Vundle.vim
+
+" ############################################################################
 " # >>> -----------               VUNDLE                   ------------- <<< #
 " ############################################################################
 
@@ -46,11 +59,6 @@
     set nocompatible              " required
     filetype off                  " required
     
-    " set the runtime path to include Vundle and initialize
-    set rtp+=~/.vim/bundle/Vundle.vim
-    "
-    " runtime path for CtrlP
-    set runtimepath^=~/.vim/bundle/ctrlp.vim
 
     " -> VUNDLE START ------------------------------------------------------
     " alternatively, pass a path where Vundle should install plugins
@@ -59,7 +67,9 @@
 
     " -> VIM AIRLINE -------------------------------------------------------
     " Vim airline light
-    Plugin 'itchyny/lightline.vim'
+    " Plugin 'itchyny/lightline.vim'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
 
     " -> VIM-EXPAND-REGION -------------------------------------------------
     " + - expand shrink visual selection
@@ -126,6 +136,9 @@
     " -> VIM-MULTIPLE-CURSOR -----------------------------------------------
     Plugin 'terryma/vim-multiple-cursors'
     " Sublime style <C-n> <C-p> <C-x>
+
+    " -> VIM-SYNTASTIC -----------------------------------------------------
+    Plugin 'vim-syntastic/syntastic'
 
     " -> VIM-ESAY-ALIGN ----------------------------------------------------
     Plugin 'junegunn/vim-easy-align'
@@ -207,31 +220,30 @@
     " " add visible word in tmux panes in completion list
     
     " -> FZF ---------------------------------------------------------------
-    Plugin 'junegunn/fzf.vim'
+    " Plugin 'junegunn/fzf.vim'
     " will clone fzf in ~/.fzf and run install script
-    " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     
     " -> VIM-SORT-MOTION ---------------------------------------------------
     " Bundle 'christoomey/vim-sort-motion'
     " gs2j (2 lines)  gsip (in paragraph) gsii (indent) gsi( within parenthesis 
-    
+
+    " -> CTRL-SPACE --------------------------------------------------------
+    Plugin 'vim-ctrlspace/vim-ctrlspace'
+
     " -> I3-VIM-SYNTAX -----------------------------------------------------
     " i3 Syntax file
     " http://raw.github.com/PotatoesMaster/i3-vim-syntax/master/syntax/i3.vim
     " Plugin 'PotatoesMaster/i3-vim-syntax'
+
+    " Match Tmux line to Vim airline colorscheme
+    " Plugin 'edkolev/tmuxline.vim'
     
 
     call vundle#end()            " required
     filetype plugin indent on    " required
     
     filetype plugin on
-
-" ############################################################################
-" # >>> -----------               RUNTIME PATH             ------------- <<< #
-" ############################################################################
-
-    set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-    set rtp+=~/.fzf
 
 " ############################################################################
 " # >>> -----------               OPTIONS                  ------------- <<< #
@@ -448,8 +460,46 @@
 " ----------------------------------------------------------------------------
 "  STATUS LINE ---------------------------------------------------------------
 
+    " Automatically displays all buffers when there's only one tab open.
+    let g:airline#extensions#tabline#enabled = 1
+    " options for separators
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+    " choose which path formatter airline uses: default, jsformatter, unique_tail, unique_tail_improved
+    let g:airline#extensions#tabline#formatter = 'default'
+
 	" Format the status line without Powerline / Airline etc...
 	"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+" ----------------------------------------------------------------------------
+"  SYNTASTIC -----------------------------------------------------------------
+
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+
+    let g:syntastic_python_checkers = ['pylint']
+
+" ----------------------------------------------------------------------------
+"  CTRL-SPACE ----------------------------------------------------------------
+
+    if has("gui_running")
+        " Settings for MacVim and Inconsolata font
+        let g:CtrlSpaceSymbols = { "File": "◯", "CTab": "▣", "Tabs": "▢" }
+    endif
+
+    " need ag to be installed
+    if executable("ag")
+        let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+    endif
+
+    " increase plugin fuzzy search delay
+    let g:CtrlSpaceSearchTiming = 500
 
 " ############################################################################
 " # >>> -----------               BINDINGS                 ------------- <<< #

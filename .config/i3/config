@@ -326,7 +326,7 @@ popup_during_fullscreen smart
 # start ROFI in run mode (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show run
 bindsym $mod+w exec --no-startup-id rofi -combi-modi window -show combi
-bindsym $mod+v exec --no-startup-id /home/ben/git/Dotfiles/.config/Scripts/rofi/rofi-bangs.sh, mode "default"
+bindsym $mod+v exec --no-startup-id $HOME/git/Dotfiles/.config/Scripts/rofi/rofi-bangs.sh, mode "default"
 # bindsym $mod+d exec dmenu_run -fn 'System San Fransico Display:bold:pixelsize=18' */ 
 
 # start ROFI in window mod
@@ -426,12 +426,12 @@ exec blueberry-tray
 
 # USER APPLICATIONS
 
-exec firefox
+#exec firefox
 #for_window [class="Firefox"] focus
 #exec spotify
 #for_window [class="Spotify"] focus
 # conkys info on desktop
-exec ~/.config/i3/start-conkys.sh
+#exec ~/.config/i3/start-conkys.sh
 #exec dunst -config ~/.config/i3/dunstrc
 
 ###########################################################################
@@ -498,7 +498,7 @@ mode "$mode_conky" {
 # >>>------------------   SCREENSHOT    ------------------------------<<< #
 ###########################################################################
 
-bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pictures/'
+bindsym Print exec scrot '%Y-%m-%d-%s_screenshot_$wx$h.jpg' -e 'mv $f ~/Pic/'
 bindsym Control+Print exec gnome-screenshot -i
 
 

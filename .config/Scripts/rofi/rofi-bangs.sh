@@ -24,12 +24,12 @@ declare -A COMMANDS
 
 # search local files
 
-COMMANDS["locate"]="/home/ben/git/Dotfiles/.config/Scripts/rofi/rofi-locate.sh"
+COMMANDS["locate"]="$HOME/git/Dotfiles/.config/Scripts/rofi/rofi-locate.sh"
 LABELS["locate"]=""
 
-# open custom web searches
-COMMANDS["websearch"]="~/.scripts/rofi-scripts-collection/rofi-surfraw-websearch.sh"
-LABELS["websearch"]=""
+# # open custom web searches
+# COMMANDS["websearch"]="~/.scripts/rofi-scripts-collection/rofi-surfraw-websearch.sh"
+# LABELS["websearch"]=""
 
 # greenclip clipboard history
 # source: https://github.com/erebe/greenclip
