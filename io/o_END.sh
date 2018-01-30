@@ -12,25 +12,14 @@
 
 
 echo "#############################################"
-echo "Full Install Started !"
+echo ">>> Finalize Install !"
 echo "#############################################"
 echo ""
 
-sh o_bash.sh
-sh o_fonts.sh
-sh o_gtkrc-20.sh
-sh o_i3.sh
-sh o_polybar.sh
-sh o_template.sh
-sh o_tmux.sh
-sh o_vim.sh
-sh o_xinitrc.sh
-sh o_xresources.sh
-sh o_zsh.sh
-sh o_END.sh
+wal -i "$HOME/git/in/amd-i3/Personal/wallpapers/selection_001/water_sky_dark_blue_001.png"
 
 echo ""
 echo "#############################################"
-echo ">>> Full Install Done !"
+echo ">>> Finalize Install Done!"
 echo "#############################################"
 
