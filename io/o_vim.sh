@@ -24,6 +24,11 @@ DATE=$BKP_DIR"/$(date +"%FT%H%M%S")"
 
 echo "--------------------------------------------"
 
+echo "Install Vundle for Vim"
+#if [ ! -d $HOME/.vim/bundle/Vundle.vim ] ; then
+    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+#fi
+
 echo "Install "$REAL_NAME1" and "$REAL_NAME2" to your Home"
 echo ""
 

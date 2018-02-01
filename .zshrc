@@ -1,9 +1,10 @@
+neofetch
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/usr/share/oh-my-zsh
-  #export ZSH=/home/ben/.oh-my-zsh
+  #export ZSH=/usr/share/oh-my-zsh
+  export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -53,7 +54,7 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git tmux branch colored-man-pages colorize common-aliases copydir copyfile cp dircycle dirhistory extract jump last-working-dir python rsync sublime textmate web-search)
-plugins=(git)
+plugins=(git, zsh-autosuggestions)
  
 RANGER_LOAD_DEFAULT_RC="false"
 
@@ -92,16 +93,6 @@ export EDITOR='vim'
 
 alias tmux='tmux -2'
 
-alias configzsh="vim ~/.zshrc"
-alias configohmyzsh="vim ~/.oh-my-zsh"
-alias configvim="vim ~/.vimrc"
-alias configtmux="vim ~/.tmux.conf"
-alias configi3="vim ~/.config/i3/config"
-alias configcompton="vim ~/.config/i3/compton.conf"
-alias resource="source ~/.zshrc; echo \".zshrc Reloaded !\""
-
-
-
 ###########################################################
 alias C="xclip"
 alias V="xclip -o"
@@ -136,15 +127,15 @@ KEYTIMEOUT=1
 # add missing vim hotkeys
 # fixes backspace deletion issues
 # http://zshwiki.org/home/zle/vi-mode
-bindkey -a u undo
-bindkey -a '^R' redo
-bindkey '^?' backward-delete-char
-bindkey '^H' backward-delete-char
+#bindkey -a u undo
+#bindkey -a '^R' redo
+#bindkey '^?' backward-delete-char
+#bindkey '^H' backward-delete-char
 
 # history search in vim mode
 # http://zshwiki.org./home/zle/bindkeys#why_isn_t_control-r_working_anymore
-bindkey -M viins '^s' history-incremental-search-backward
-bindkey -M vicmd '^s' history-incremental-search-backward
+#bindkey -M viins '^s' history-incremental-search-backward
+#bindkey -M vicmd '^s' history-incremental-search-backward
 
 
 ## The following binds them to key combinations such as i" a( in both the visual and viopp keymaps.
@@ -234,3 +225,7 @@ fi
 if [ -f ~/.common_alias ]; then
     source ~/.common_alias
 fi
+
+# This binds Ctrl-O to ranger-cd:
+bindkey -s "\C-o" "ranger-cd\C-m"
+

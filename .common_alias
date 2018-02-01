@@ -7,7 +7,6 @@
 
 export HISTCONTROL=ignoreboth:erasedups
 
-PS1='[\u@\h \W]\$ '
 EDITOR=vim
 
 ###########################################################################
@@ -75,9 +74,6 @@ alias pksyua="yaourt -Syu  --aur --noconfirm"
 #grub update
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
-#improve png
-alias fixpng="find . -type f -name "*.png" -exec convert {} -strip {} \;"
-
 #add new fonts
 alias fc='sudo fc-cache -fv'
 
@@ -116,17 +112,18 @@ alias pbnoformatting='xclip -selection clipboard -o | xclip -selection clipboard
 # >>>----------------------    FUNCTIONS   ---------------------------<<< #
 ###########################################################################
 
-#-------- Edit Reload Conf / Rc{{{
+#-------- Edit Reload Goto Conf / Rc{{{
 #------------------------------------------------------
 
 cfg-aliasrc() { $EDITOR ~/.aliasrc ;}
 cfg-bashrc() { $EDITOR ~/.bashrc ;}
+cfg-commonalias() { $EDITOR ~/.common_alias;}
 cfg-compton() { $EDITOR ~/.config/i3/compton.conf ;}
 cfg-dunst() { $EDITOR ~/.config/i3/dunstrc ;}
 cfg-grub() { sudo $EDITOR /etc/default/grub ;}
-cfg-i3blocks() { $EDITOR ~/.i3/i3blocks.conf ;}
-cfg-i3conf() { $EDITOR ~/.i3/config ;}
-cfg-i3status() { $EDITOR ~/.i3/i3status.conf ;}
+cfg-i3blocks() { $EDITOR ~/.config/i3/i3blocks.conf ;}
+cfg-i3conf() { $EDITOR ~/.config/i3/config ;}
+cfg-i3status() { $EDITOR ~/.config/i3/i3status.conf ;}
 cfg-mc() { $EDITOR ~/.config/mc/ini ;}
 cfg-mc-keymap() { $EDITOR ~/.config/mc/mc.keymap ;}
 cfg-mpd() { $EDITOR ~/.mpd/mpd.conf ;}
@@ -157,16 +154,65 @@ cfg-yaourtrc() { $EDITOR ~/.yaourtrc ;}
 cfg-zshrc() { $EDITOR ~/.zshrc ;}
 
 rld-bashrc() { source ~/.bashrc ;}
+rld-commonalias() { source ~/.common_alias;}
 rld-font() { fc-cache -v -f ;}
 rld-grub() { sudo grub-mkconfig -o /boot/grub/grub.cfg ;}
 rld-xbindkeys() { killall xbindkeys ; xbindkeys ;}
 rld-xresources() { xrdb -load ~/.Xresources ;}
 rld-zshrc() { source ~/.zshrc ;}
 
+goto-aliasrc() { cd ~ ;}
+goto-bashrc() { cd ~ ;}
+goto-commonalias() { cd ~;}
+goto-compton() { cd ~/.config/i3/ ;}
+goto-dunst() { cd ~/.config/i3/ ;}
+goto-grub() { cd /etc/default/grub ;}
+goto-i3blocks() { cd ~/.config/i3/;}
+goto-i3conf() { cd ~/.config/i3/ ;}
+goto-i3status() { cd ~/.config/i3/;}
+goto-mc() { cd ~/.config/mc/ini ;}
+goto-mc-keymap() { cd ~/.config/mc/mc.keymap ;}
+goto-mpd() { cd ~/.mpd/mpd.conf ;}
+goto-mplayer() { cd ~/.mplayer/config ;}
+goto-mpv() { cd ~/.config/mpv/mpv.conf ;}
+goto-mpv-input() { cd ~/.config/mpv/input.conf ;}
+goto-nanorc() { cd ~;}
+goto-ncmpcpp() { cd ~/.ncmpcpp/ ;}
+goto-ncmpcpp-bindings() { cd ~/.ncmpcpp/ ;}
+goto-neofetch() { cd ~/.config/neofetch/ ;}
+goto-polybar() { cd ~/.config/polybar/ ;}
+goto-qutebrowser() { cd ~/.config/qutebrowser/ ;}
+goto-qutebrowser-keys() { cd ~/.config/qutebrowser/ ;}
+goto-qutebrowser-quickmarks() { cd ~/.config/qutebrowser/ ;}
+goto-rofibangs() { cd ~/.scripts/rofi-scripts-collection/ ;}
+goto-ranger() { cd ~/.config/ranger/ ;}
+goto-ranger-rifle() { cd ~/.config/ranger/ ;}
+goto-ranger-commands() { cd ~/.config/ranger/ ;}
+goto-samba() { sudo cd /etc/samba/ ;}
+goto-surfraw() { cd ~.config/surfraw/ ;}
+goto-tcshrc() { cd ~ ;}
+goto-tmuxrc() { cd ~ ;}
+goto-variety() { cd ~/.config/variety/ ;}
+goto-vimrc() { cd ~ ;}
+goto-xbindkeysrc() { cd ~ ;}
+goto-xresources() { cd ~ ;}
+goto-zshrc() { cd ~ ;}
+
 
 # }}}
 #-------- Utilities {{{
 #------------------------------------------------------
+
+# ranger
+function ranger-cd {                                                                    
+   tempfile="$(mktemp -t tmp.XXXXXX)"                                                  
+   /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"                              
+   test -f "$tempfile" &&                                                              
+   if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then                          
+       cd -- "$(cat "$tempfile")"                                                      
+   fi                                                                                  
+   rm -f -- "$tempfile"                                                                
+}        
 
 cpbak() { cp $1{,.bak} ;} # create backup copy
 mkdircd() { mkdir -p -v $1; cd $1 ;} # create folder then cd into it

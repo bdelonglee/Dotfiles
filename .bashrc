@@ -96,8 +96,7 @@ if [ -x /usr/bin/dircolors ]; then
 
 # NEW CODE, requires 1 hotkey only to switch back and fort
 # credit youtuber: Gnomeye
-
-bind } run "if [[ $(tmux list-window) =~ tmux-zoom ]]; then tmux last-window; tmux swap-pane -s tmux-zoom.0; tmux kill-window -t tmux-zoom; else tmux new-window -d -n tmux-zoom 'clear && echo TMUX ZOOM && read'; tmux swap-pane -s tmux-zoom.0; tmux select-window -t tmux-zoom;fi"
+# bind } run "if [[ $(tmux list-window) =~ tmux-zoom ]]; then tmux last-window; tmux swap-pane -s tmux-zoom.0; tmux kill-window -t tmux-zoom; else tmux new-window -d -n tmux-zoom 'clear && echo TMUX ZOOM && read'; tmux swap-pane -s tmux-zoom.0; tmux select-window -t tmux-zoom;fi"
 
 fi
 
@@ -146,26 +145,26 @@ fi
 
 alias tmux='tmux -2'
 
-###########################################################
-# POWERLINE
-###########################################################
+############################################################
+## POWERLINE
+############################################################
 
-source /etc/profile
-PATH=$PATH:~/bin
+#source /etc/profile
+#PATH=$PATH:~/bin
 
-export TERM="screen-256color"
-export PATH="$HOME/.local/bin:$PATH"
-export POWERLINE_COMMAND=powerline
-export POWERLINE_CONFIG_COMMAND=powerline-config
+#export TERM="screen-256color"
+#export PATH="$HOME/.local/bin:$PATH"
+#export POWERLINE_COMMAND=powerline
+#export POWERLINE_CONFIG_COMMAND=powerline-config
 
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+#powerline-daemon -q
+#POWERLINE_BASH_CONTINUATION=1
+#POWERLINE_BASH_SELECT=1
+#. ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 
-#if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
-#    source ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
-#fi
+##if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
+##    source ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+##fi
 
 ###########################################################
 # TOOLS
@@ -205,3 +204,7 @@ fi
 if [ -f ~/.common_alias ]; then
     source ~/.common_alias
 fi
+
+
+# This binds Ctrl-O to ranger-cd:
+bind '"\C-o":"ranger-cd\C-m"'
