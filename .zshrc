@@ -6,10 +6,30 @@ neofetch
   #export ZSH=/usr/share/oh-my-zsh
   export ZSH=$HOME/.oh-my-zsh
 
+# POWERLEVEL9K
+source /usr/share/zsh-theme-powerlevel9k/powerlevel9k.zsh-theme
+POWERLEVEL9K_INSTALLATION_PATH=/usr/share/zsh-theme-powerlevel9k
+
+POWERLEVEL9K_MODE='awesome-fontconfig'
+DEFAULT_USER='ben'
+POWERLEVEL9K_HOME_ICON=''
+POWERLEVEL9K_HOME_SUB_ICON=''
+POWERLEVEL9K_FOLDER_ICON=''
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_VI_INSERT_MODE_STRING='INS'
+POWERLEVEL9K_VI_COMMAND_MODE_STRING='CMD'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user vi_mode dir rbenv vcs)
+
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+
+# POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{blue}\u2570\uf460%F{white} "
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="random"
+ZSH_THEME="powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -54,7 +74,7 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git tmux branch colored-man-pages colorize common-aliases copydir copyfile cp dircycle dirhistory extract jump last-working-dir python rsync sublime textmate web-search)
-plugins=(git, zsh-autosuggestions)
+plugins=(git, zsh-autosuggestions, vi-mode)
  
 RANGER_LOAD_DEFAULT_RC="false"
 
