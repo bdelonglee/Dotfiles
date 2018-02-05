@@ -80,7 +80,7 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git tmux branch colored-man-pages colorize common-aliases copydir copyfile cp dircycle dirhistory extract jump last-working-dir python rsync sublime textmate web-search)
-plugins=(git, zsh-autosuggestions, vi-mode)
+plugins=(git, zsh-autosuggestions, vi-mode, tmux)
  
 RANGER_LOAD_DEFAULT_RC="false"
 
