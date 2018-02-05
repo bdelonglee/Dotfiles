@@ -9,9 +9,10 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = monospace 13
+#font = Source Code Pro for Powerline 12
+#font = monospace 12
 #font = Droid Sans Mono for Powerline 14
-#font = Inconsolata for Powerline 14
+font = Inconsolata for Powerline 14
 scrollback_lines = 1000
 search_wrap = true
 #icon_name = terminal
@@ -102,7 +103,7 @@ foreground      = #00FF00
 foreground_bold = #a8a19f
 cursor          = #a8a19f
 #background      = #1b1918
-background = rgba(0, 0, 0, .7)
+background = rgba(0, 0, 0, .85)
 
 # black
 color0  = #1b1918
