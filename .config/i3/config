@@ -483,10 +483,10 @@ bindsym $mod+c mode "$mode_conky"
 
 set $mode_conky (q) Kill, (i) i3 shortcuts, (s) system infos, (t) tmux shortcuts
 mode "$mode_conky" {
-    bindsym q exec  ~/.config/i3/stop_conky.sh;mode "default"
-    bindsym i exec  ~/.config/i3/system-shortcuts-start.sh;mode "default"
-    bindsym s exec  ~/.config/i3/system-overview-start.sh;mode "default"
-    bindsym t exec  ~/.config/i3/tmux-shortcuts-start.sh;mode "default"
+    bindsym q exec  ~/.config/i3/scripts/sh/stop_conky.sh;mode "default"
+    bindsym i exec  ~/.config/i3/scripts/sh/system-shortcuts-start.sh;mode "default"
+    bindsym s exec  ~/.config/i3/scripts/sh/system-overview-start.sh;mode "default"
+    bindsym t exec  ~/.config/i3/scripts/sh/tmux-shortcuts-start.sh;mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
