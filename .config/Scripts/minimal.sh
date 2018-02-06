@@ -6,3 +6,4 @@ pkill insync
 pkill hp-systray
 pkill megasync
 pkill dropbox
+pkill compton

@@ -57,7 +57,7 @@ HYPHEN_INSENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -80,8 +80,16 @@ HYPHEN_INSENSITIVE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git tmux branch colored-man-pages colorize common-aliases copydir copyfile cp dircycle dirhistory extract jump last-working-dir python rsync sublime textmate web-search)
-plugins=(git, zsh-autosuggestions, vi-mode, tmux)
+plugins=(git, zsh-autosuggestions, copydir, copyfile, copybuffer, colorize, dirhistory, vi-mode, web-search )
  
+# Fix for Vi-Mode Indicator
+zle-keymap-select () {
+	zle reset-prompt
+	zle -R
+}
+zle -N zle-keymap-select
+
+
 RANGER_LOAD_DEFAULT_RC="false"
 
 source $ZSH/oh-my-zsh.sh
