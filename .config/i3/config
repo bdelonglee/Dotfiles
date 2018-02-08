@@ -33,7 +33,6 @@ set $mod Mod4
 
 # VARIABLES
 set $term termite
-# set $term termite
 set $browser firefox
 
 # External Scripts
@@ -259,12 +258,6 @@ bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
-# focus the parent container
-# bindsym $mod+q focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
-
 # next/previous workspace
 bindsym Mod1+Tab workspace next
 bindsym Mod1+Shift+Tab workspace prev
@@ -290,7 +283,7 @@ bindsym $mod+b exec --no-startup-id $hide_polybar
 hide_edge_borders both
 bindsym $mod+shift+b exec i3-msg border toggle
 
-# Focus parent Container
+# Focus parent child Container
 bindsym $mod+a focus parent
 bindsym $mod+z focus child
 
@@ -349,11 +342,13 @@ bindsym $mod+v exec --no-startup-id $rofi_bangs, mode "default"
 # start ROFI in window mod
 bindsym $mod+shift+d exec rofi -show window
 
+# start rofi full  -- ROFI IS NOT INSTALLED 
+bindsym $mod+F11 exec --no-startup-id rofi -show run -fullscreen -font "Noto Sans 13"
+
 # bindsym $mod+d exec rofi -show run -lines 1 -eh 2 -width 100 -padding 10 -opacity "85" -bw 0  -font "System San Fransisco Display 18"
 
 # start alternative menu j4-dmenu based on desktop files in /usr/share/applications
 # bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'System San Fransisco Display:bold:pixelsize=18' -nb '#0d2c49' -nf '#5c83a7' -sf '#d7f0fa' -sb '#0c2032'" */
-
 
 # start dmenu
 # bindsym $mod+shift+d exec --no-startup-id dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'
@@ -364,12 +359,8 @@ bindsym $mod+shift+d exec rofi -show window
 # start xfce-appfinder
 # bindsym mod1+F3 exec --no-startup-id xfce4-appfinder
 
-# start rofi full  -- ROFI IS NOT INSTALLED 
-bindsym $mod+F11 exec --no-startup-id rofi -show run -fullscreen -font "Noto Sans 13"
-
 # start rofi small  -- ROFI IS NOT INSTALLED
 #bindsym $mod+F12 exec --no-startup-id rofi -show run -font "Noto Sans 13"
-
 
 # bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'System San Fransisco Display:bold:pixelsize=18' -nb '#193445' -nf '#97cce1' -sf '#274754' -sb '#97cce1'"
 # bindsym $mod+shift+d exec j4-dmenu-desktop --dmenu="dmenu -fn 'System San Fransisco Display:bold:pixelsize=18' -nb '#fdf6e3' -nf '#586c75' -sf '#fdf6e3' -sb '#FFAF00'"
@@ -471,6 +462,21 @@ bindsym $mod+Shift+F6 workspace $ws6; exec houdini; focus
 bindsym $mod+F7 exec nuke
 bindsym $mod+Shift+F7 workspace $ws7; exec nuke; focus
 
+#Conky Mode
+bindsym $mod+c mode "$mode_conky"
+
+set $mode_conky (q) Kill, (i) i3 shortcuts, (s) system infos, (t) tmux shortcuts
+mode "$mode_conky" {
+    bindsym q exec  $stop_conky ;mode "default"
+    bindsym i exec  $system_shortcuts ;mode "default"
+    bindsym s exec  $system_overview ;mode "default"
+    bindsym t exec  $tmux_shortcuts ;mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 #bindsym $mod+F9 exec spotify
 #bindsym $mod+Shift+F9 workspace $ws9; exec spotify;focus
 
@@ -494,21 +500,6 @@ bindsym $mod+Shift+F7 workspace $ws7; exec nuke; focus
 #bindsym control+mod1+n exec cinnamon-settings
 
 #bindsym $mod+c exec ~/.config/i3/swap_conky.sh
-
-#Conky Mode
-bindsym $mod+c mode "$mode_conky"
-
-set $mode_conky (q) Kill, (i) i3 shortcuts, (s) system infos, (t) tmux shortcuts
-mode "$mode_conky" {
-    bindsym q exec  $stop_conky ;mode "default"
-    bindsym i exec  $system_shortcuts ;mode "default"
-    bindsym s exec  $system_overview ;mode "default"
-    bindsym t exec  $tmux_shortcuts ;mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
 
 
 ###########################################################################
@@ -575,7 +566,7 @@ for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 625 400
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 3
-exec --no-startup-id termite -t dropdown 
+# exec --no-startup-id termite -t dropdown 
 
 bindsym $mod+u [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 
@@ -606,6 +597,7 @@ bindsym $mod+u [instance="dropdown"] scratchpad show; [instance="dropdown"] move
 #}
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
 ###bar {
 ###
 ###	# type status_command i3status without the config file and 

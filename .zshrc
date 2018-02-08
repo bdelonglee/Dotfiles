@@ -263,3 +263,5 @@ fi
 # This binds Ctrl-O to ranger-cd:
 bindkey -s "\C-o" "ranger-cd\C-m"
 
+# Syntax highlight
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
