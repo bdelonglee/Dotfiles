@@ -33,8 +33,20 @@ set $mod Mod4
 
 # VARIABLES
 set $term termite
+# set $term termite
 set $browser firefox
+
+# External Scripts
 set $flash --no-startup-id bash ~/.config/Scripts/flash_win.sh
+
+set $hide_polybar ~/.config/polybar/scripts/hide_bar.sh
+set $rofi_bangs ~/git/in/Dotfiles/.config/Scripts/rofi/rofi-bangs.sh
+set $i3_exit ~/.config/i3/scripts/sh/i3exit.sh
+set $stop_conky ~/.config/i3/scripts/sh/stop_conky.sh
+set $system_shortcuts ~/.config/i3/scripts/sh/system-shortcuts-start.sh
+set $system_overview ~/.config/i3/scripts/sh/system-overview-start.sh
+set $tmux_shortcuts ~/.config/i3/scripts/sh/tmux-shortcuts-start.sh
+set $compton ~/.config/i3/compton.conf
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -207,6 +219,9 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# Sticky
+bindsym $mod+Shift+s sticky toggle
+
 
 ###########################################################################
 # >>>--------------------   PERSO FUNC  ------------------------------<<< #
@@ -216,6 +231,8 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+BackSpace		exec $flash
 # porn mode :)
 bindsym $mod+Shift+Delete	exec $truemute ; exec $truepause ; workspace lmao ; exec $term -e htop ; exec $term -e ranger
+# System monitoring
+bindsym $mod+Shift+m    	workspace Monitor ; exec $term -e htop ; exec $term -e glances ; exec $term -2 gtop
 
 ###########################################################################
 # >>>---------------   TILING PARAMETER   ----------------------------<<< #
@@ -267,7 +284,7 @@ for_window [urgent=latest] focus
 
 # bar toggle, hide or show 
 # bindsym $mod+b bar mode toggle
-bindsym $mod+b exec --no-startup-id ~/.config/polybar/scripts/hide_bar.sh
+bindsym $mod+b exec --no-startup-id $hide_polybar
 
 # Show Title-Border for current window
 hide_edge_borders both
@@ -326,7 +343,7 @@ popup_during_fullscreen smart
 # start ROFI in run mode (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show run
 bindsym $mod+w exec --no-startup-id rofi -combi-modi window -show combi
-bindsym $mod+v exec --no-startup-id $HOME/git/Dotfiles/.config/Scripts/rofi/rofi-bangs.sh, mode "default"
+bindsym $mod+v exec --no-startup-id $rofi_bangs, mode "default"
 # bindsym $mod+d exec dmenu_run -fn 'System San Fransico Display:bold:pixelsize=18' */ 
 
 # start ROFI in window mod
@@ -380,12 +397,12 @@ bindsym Mod1+Ctrl+BackSpace mode "$mode_system"
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id ~/.config/i3/scripts/i3exit.sh lock, mode "default"
-    bindsym e exec --no-startup-id ~/.config/i3/scripts/i3exit.sh logout, mode "default"
-    bindsym s exec --no-startup-id ~/.config/i3/scripts/i3exit.sh suspend, mode "default"
-    bindsym h exec --no-startup-id ~/.config/i3/scripts/i3exit.sh hibernate, mode "default"
-    bindsym r exec --no-startup-id ~/.config/i3/scripts/i3exit.sh reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id ~/.config/scripts/i3/i3exit.sh shutdown, mode "default"
+    bindsym l exec --no-startup-id $i3_exit lock, mode "default"
+    bindsym e exec --no-startup-id $i3_exit logout, mode "default"
+    bindsym s exec --no-startup-id $i3_exit suspend, mode "default"
+    bindsym h exec --no-startup-id $i3_exit hibernate, mode "default"
+    bindsym r exec --no-startup-id $i3_exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id $i3_exit shutdown, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -483,10 +500,10 @@ bindsym $mod+c mode "$mode_conky"
 
 set $mode_conky (q) Kill, (i) i3 shortcuts, (s) system infos, (t) tmux shortcuts
 mode "$mode_conky" {
-    bindsym q exec  ~/.config/i3/scripts/sh/stop_conky.sh;mode "default"
-    bindsym i exec  ~/.config/i3/scripts/sh/system-shortcuts-start.sh;mode "default"
-    bindsym s exec  ~/.config/i3/scripts/sh/system-overview-start.sh;mode "default"
-    bindsym t exec  ~/.config/i3/scripts/sh/tmux-shortcuts-start.sh;mode "default"
+    bindsym q exec  $stop_conky ;mode "default"
+    bindsym i exec  $system_shortcuts ;mode "default"
+    bindsym s exec  $system_overview ;mode "default"
+    bindsym t exec  $tmux_shortcuts ;mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -543,6 +560,14 @@ bindsym XF86AudioStop exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer
 # for_window [instance="color"] move scratchpad; [instance="color"] scratchpad show; move scratchpad
 # bindsym $mod+u [instance="color"] scratchpad show      
 
+# for_window [class="Termite"] floating enable
+# for_window [class="Termite"] resize set 625 400
+# for_window [class="Termite"] move scratchpad
+# for_window [class="Termite"] border pixel 3
+# exec --no-startup-id $term --name dropdown -e tmux
+
+# bindsym $mod+u [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+
 # #---Dropdown/Scratchpad Windows---# #
 # First I have a tmux window used for background scripts.
 # I'll later bind this to mod+u.
@@ -550,10 +575,13 @@ for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 625 400
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 3
-exec --no-startup-id $term -n dropdown -e tmux
+exec --no-startup-id termite -t dropdown 
 
 bindsym $mod+u [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 
+#for_window [instance="__scratchpad"] move scratchpad
+#exec --no-startup-id urxvt -name __scratchpad
+#bindsym $mod+u [instance="__scratchpad"] scratchpad show; [instance="__scratchpad"] move position center
 
 # exec --no-startup-id $term --name=dropdown -e tmux -2
 # for_window [instance="dropdown"] floating enable;
@@ -702,11 +730,11 @@ bindsym $mod+r mode "resize"
 # Settings for I3 next gap git
 # https://github.com/Airblader/i3
 
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 4
 gaps inner 15
 gaps outer 5
 #smart_gaps on
-#smart_borders on
+smart_borders on
 
 # Reset Default Gaps
 bindsym $mod+Ctrl+r    gaps inner all set 15; gaps outer all set 5
@@ -770,14 +798,14 @@ mode "$mode_gaps_outer" {
 ###########################################################################
 
 #if you want transparency on non-focused windows
-exec_always compton --config ~/.config/i3/compton.conf
+exec_always compton --config $compton
 
 
 ###########################################################################
 # >>>--------------    BAR APPEARANCE ARCHIVE     --------------------<<< #
 ###########################################################################
 
-# Orange background with black text - not focus grey background - white text
+# Orange background wIth black text - not focus grey background - white text
 # Windows decoration colors
 # class                   border  backgr. text    indicator
 # client.background color         #222222
