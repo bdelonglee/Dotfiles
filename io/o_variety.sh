@@ -3,13 +3,13 @@
 ###################################################
 # Autor: bdelonglee
 # Date: 06-01-2018
-# Backup .vimrc .vim to .bkp_dotfiles/zsh
-# Install .vimrc .vim from Dotfiles repository
+# Backup ui.conf  variety.conf to .bkp_dotfiles/zsh
+# Install ui.conf variety.conf from Dotfiles repository
 ###################################################
 
-REAL_NAME1=".vimrc"
-REAL_NAME2=".vim"
-BKP_DIR_NAME="vim"
+REAL_NAME1=".config/variety/ui.conf"
+REAL_NAME2=".config/variety/variety.conf"
+BKP_DIR_NAME="variety"
 BKP_ROOT=".bkp_dotfiles"
 
 
@@ -54,26 +54,5 @@ cp -rf $SOURCE_FILE2  $TARGET_FILE2 ;
 
 echo ""
 echo ">>> "$REAL_NAME1" and "$REAL_NAME2" Install Done !"
-
-function vundle-init () {
-if [ ! -d ~/.vim/bundle/Vundle.vim/ ]; then
-    mkdir -p ~/.vim/bundle/Vundle.vim/
-fi
-
-if [ ! -d ~/.vim/bundle/Vundle.vim/.git ] && [ ! -f ~/.vim/bundle/Vundle.vim/.git ]; then
-    git clone git://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    echo "\n\tRead about vim configuration for vundle at https://github.com/VundleVim/Vundle.vim\n"
-fi
-}
-
-function vundle () {
-  vundle-init
-  vim -c "execute \"PluginInstall\" | qa"
-}
-
-vundle
-
-echo ""
-echo ">>> Vundle Install and Plugins Update Done !"
 
 echo "--------------------------------------------"

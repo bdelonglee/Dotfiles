@@ -21,7 +21,9 @@ sh o_fonts.sh
 sh o_gtkrc-20.sh
 sh o_i3.sh
 sh o_polybar.sh
+sh o_ranger.sh
 sh o_template.sh
+sh o_termite.sh
 sh o_tmux.sh
 sh o_vim.sh
 sh o_xinitrc.sh
