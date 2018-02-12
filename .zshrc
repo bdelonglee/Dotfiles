@@ -19,7 +19,7 @@ POWERLEVEL9K_FOLDER_ICON=''
 POWERLEVEL9K_VI_INSERT_MODE_STRING='INS'
 POWERLEVEL9K_VI_COMMAND_MODE_STRING='CMD'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir_writable root_indicator user vi_mode dir rbenv vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time background_jobs ram virtualenv rbenv rvm)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status time background_jobs ram virtualenv rbenv rvm)
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
 # POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S %d/%m/%Y}"
 # POWERLEVEL9K_TIME_FORMAT="\UF43A %D{%H:%M  \UF133  %m.%d.%y}"
@@ -264,4 +264,4 @@ fi
 bindkey -s "\C-o" "ranger-cd\C-m"
 
 # Syntax highlight
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

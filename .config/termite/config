@@ -1,3 +1,4 @@
+# vim: ft=dosini cms=#%s
 [options]
 resize_grip = false
 scroll_on_output = false
@@ -9,8 +10,8 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-#font = Source Code Pro for Powerline 12
-#font = monospace 12
+# font = Source Code Pro for Powerline 12
+# font = Monospace 14
 #font = Droid Sans Mono for Powerline 14
 font = Inconsolata for Powerline 14
 scrollback_lines = 1000
@@ -94,7 +95,6 @@ color15 = #ecebec
 #border_width = 0.5
 #roundness = 2.0
 
-# vim: ft=dosini cms=#%s
 [colors]
 
 # special

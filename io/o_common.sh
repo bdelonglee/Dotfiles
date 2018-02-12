@@ -3,11 +3,12 @@
 ###################################################
 # Autor: bdelonglee
 # Date: 06-01-2018
-# Backup .xinitrc
+# Backup .config/feh to .bkp_dotfiles/feh
+# Install .config/feh  from Dotfiles repository
 ###################################################
 
-REAL_NAME=".config/neofetch/config.conf"
-BKP_DIR_NAME="neofetch"
+REAL_NAME=".common_alias"
+BKP_DIR_NAME="common_alias"
 BKP_ROOT=".bkp_dotfiles"
 
 
@@ -42,9 +43,6 @@ if [ -e "$TARGET_FILE" ]; then
     echo $REAL_NAME" backuped !"
 fi
 
-if [ ! -d ~/.config/neofetch/ ]; then
-    mkdir -p ~/.config/neofetch/
-fi
 
 cp -rf $SOURCE_FILE  $TARGET_FILE ;
 

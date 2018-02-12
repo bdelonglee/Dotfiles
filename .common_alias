@@ -145,6 +145,7 @@ cfg-ranger-commands() { $EDITOR ~/.config/ranger/commands.py ;}
 cfg-samba() { sudo $EDITOR /etc/samba/smb.conf ;}
 cfg-surfraw() { $EDITOR ~/.config/surfraw/conf ;}
 cfg-tcshrc() { $EDITOR ~/.tcshrc ;}
+cfg-termite() { $EDITOR ~/.config/termite/config ;}
 cfg-tmuxrc() { $EDITOR ~/.tmux.conf ;}
 cfg-variety() { $EDITOR ~/.config/variety/variety.conf ;}
 cfg-vimrc() { $EDITOR ~/.vimrc ;}
@@ -155,6 +156,7 @@ cfg-zshrc() { $EDITOR ~/.zshrc ;}
 
 rld-bashrc() { source ~/.bashrc ;}
 rld-commonalias() { source ~/.common_alias;}
+rld-termite() { termite -c ~/.config/termite/config;}
 rld-font() { fc-cache -v -f ;}
 rld-grub() { sudo grub-mkconfig -o /boot/grub/grub.cfg ;}
 rld-xbindkeys() { killall xbindkeys ; xbindkeys ;}
