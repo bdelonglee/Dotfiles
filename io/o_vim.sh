@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 ###################################################
 # Autor: bdelonglee
@@ -54,24 +54,22 @@ cp -rf $SOURCE_FILE2  $TARGET_FILE2 ;
 
 echo ""
 echo ">>> "$REAL_NAME1" and "$REAL_NAME2" Install Done !"
+echo ""
+echo "--------------------------------------------"
+echo ">>> Install Vundle"
 
-function vundle-init () {
 if [ ! -d ~/.vim/bundle/Vundle.vim/ ]; then
     mkdir -p ~/.vim/bundle/Vundle.vim/
 fi
 
 if [ ! -d ~/.vim/bundle/Vundle.vim/.git ] && [ ! -f ~/.vim/bundle/Vundle.vim/.git ]; then
-    git clone git://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    #git clone git://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     echo "\n\tRead about vim configuration for vundle at https://github.com/VundleVim/Vundle.vim\n"
 fi
-}
 
-function vundle () {
-  vundle-init
-  vim -c "execute \"PluginInstall\" | qa"
-}
+vim -c "execute \"PluginInstall\" | qa"
 
-vundle
 
 echo ""
 echo ">>> Vundle Install and Plugins Update Done !"

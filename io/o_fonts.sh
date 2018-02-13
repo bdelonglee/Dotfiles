@@ -43,7 +43,7 @@ if [ -e "$TARGET_FILE" ]; then
     echo $REAL_NAME" backuped !"
 fi
 
-
+mkdir -p $HOME/.fonts
 cp  $SOURCE_FILE/*  $TARGET_FILE/ ;
 
 echo ""

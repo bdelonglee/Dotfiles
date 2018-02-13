@@ -529,7 +529,7 @@
     " one less key to press everytime I want to save
     " easy access to command, keeping t|T|f|F
     nnoremap ; :
-    "nnoremap : ;
+    nnoremap : ;
 
 " ----------------------------------------------------------------------------
 " TAG BAR --------------------------------------------------------------------
