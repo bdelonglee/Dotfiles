@@ -133,6 +133,10 @@
     Plugin 'tpope/vim-commentary'
     " gcc (1 line) gcap (a paragraph) gc2j (2lines) :7,17Commentary  :g/TODO/Commentary
 
+    " -> VIM-UNIMPAIRED ----------------------------------------------------
+    Plugin 'tpope/vim-unimpaired'
+    " ]q :cnext [q :cprevious, ]a :next [b :bprevious
+
     " -> VIM-MULTIPLE-CURSOR -----------------------------------------------
     Plugin 'terryma/vim-multiple-cursors'
     " Sublime style <C-n> <C-p> <C-x>
@@ -297,7 +301,7 @@
     set wrap
     set textwidth=79
     set formatoptions=qrn1
-    set colorcolumn=85
+    set colorcolumn=100
     highlight ColorColumn ctermbg=238 guibg=lightgrey
     
     " Show partial commands in the last line of the screen
@@ -416,8 +420,6 @@
 
     set mouse=a
     
-    let g:syntastic_check_on_open = 1
-
 " ----------------------------------------------------------------------------
 "  WILDMENU COMPLETION -------------------------------------------------------
 
@@ -590,8 +592,8 @@
     nnoremap td  :tabclose<CR>
     nnoremap tn :tabnew<CR>
     " in normal mode Tab is useless.Map tab key to switch tab.
-    nmap <tab> gt
-    nmap <s-tab> gT
+    " nmap <tab> gt
+    " nmap <s-tab> gT
 
 " ----------------------------------------------------------------------------
 " OTHERS ---------------------------------------------------------------------
