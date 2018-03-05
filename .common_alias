@@ -1,13 +1,27 @@
-#
-# ~/.bashrc
-#
+###########################################################################
+# >>>----------------------    OPTIONS & VARIABLES -------------------<<< #
+###########################################################################
 
+#-------- Basic {{{
+#------------------------------------------------------
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 export HISTCONTROL=ignoreboth:erasedups
-
 EDITOR=vim
+
+#}}}
+#-------- FZF Options {{{
+#------------------------------------------------------
+
+# export FZF_DEFAULT_COMMAND='find .'
+export FZF_DEFAULT_OPTS="-m --cycle --height=20 --border"
+# export FZF_CTRL_T_COMMAND=""
+# export FZF_CTRL_T_OPTS=""
+# export FZF_CTRL_R_OPTS=""
+# export FZF_ALT_C_COMMAND=""
+
+#}}}
 
 ###########################################################################
 # >>>----------------------    ALIASES   -----------------------------<<< #
@@ -15,14 +29,32 @@ EDITOR=vim
 
 #-------- Aliases {{{
 #------------------------------------------------------
+# a quick way to get out of current directory ##
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .2='cd ../../'
+alias .3='cd ../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias .6='cd ../../../../../../'
+
 #list
 alias ls='ls --color=auto'
 alias la='ls -a'
-alias ll='ls -la'
+alias lA='ls -Ap | grep -v / | egrep "^\."'
+alias ll='ls -lah'
 alias l='ls' 					
 alias l.="ls -A | egrep '^\.'"      
+alias lltr='ls -ltrh'
+alias lltra='ls -ltrha'
+alias ltr='ls -ltrh'
+alias ltra='ls -ltrha'
 
 alias lsd='ls -1d */'					# ls folders only
+alias lsda='find . -maxdepth 1 -type d'
+alias lsdA='ls -Ap | egrep "^\..*/$"'
 alias l='ls -l'
 alias lsf='ls --color=always -p | grep -v '/$''		# ls files only
 alias lsa='ls -GghA'
@@ -38,8 +70,14 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
+# Start calculator with math support
+alias calc='bc -l'
+
 #readable output
 alias df='df -h'
+
+# Make mount command output pretty and human readable format
+alias mount='mount |column -t'
 
 #free
 alias free="free -mt"
@@ -107,16 +145,20 @@ alias pbpaste='xclip -selection clipboard -o'	# paste from clipboard, ctrl+v, ct
 alias pbselect='xclip -selection primary -o'	# paste from highlight, middle click, shift+insert
 alias pbnoformatting='xclip -selection clipboard -o | xclip -selection clipboard'
 
+alias C="xclip"
+alias V="xclip -o"
 # }}}
+
 ###########################################################################
 # >>>----------------------    FUNCTIONS   ---------------------------<<< #
 ###########################################################################
 
-#-------- Edit Reload Goto Conf / Rc{{{
+#-------- Edit Reload Goto Conf / Rc {{{
 #------------------------------------------------------
 
-cfg-aliasrc() { $EDITOR ~/.aliasrc ;}
 cfg-bashrc() { $EDITOR ~/.bashrc ;}
+cfg-bashrc_alias() { $EDITOR ~/.bashrc_alias ;}
+cfg-bashrc_local() { $EDITOR ~/.bashrc_local ;}
 cfg-commonalias() { $EDITOR ~/.common_alias;}
 cfg-compton() { $EDITOR ~/.config/i3/compton.conf ;}
 cfg-dunst() { $EDITOR ~/.config/i3/dunstrc ;}
@@ -153,6 +195,8 @@ cfg-xbindkeysrc() { $EDITOR ~/.xbindkeysrc && killall xbindkeys ; xbindkeys ;}
 cfg-xresources() { $EDITOR ~/.Xresources ;}
 cfg-yaourtrc() { $EDITOR ~/.yaourtrc ;}
 cfg-zshrc() { $EDITOR ~/.zshrc ;}
+cfg-zshrc_alias() { $EDITOR ~/.zshrc_alias ;}
+cfg-zshrc_local() { $EDITOR ~/.zshrc_local ;}
 
 rld-bashrc() { source ~/.bashrc ;}
 rld-commonalias() { source ~/.common_alias;}
@@ -369,14 +413,20 @@ m-ip() {
 # >>>--------------------    EXTERNAL TOOLS   ------------------------<<< #
 ###########################################################################
 
-#-------- Fasd (Jump and Open Files Quickly) {{{
+#-------- TMUX : Tmuxifier {{{
+#------------------------------------------------------
+export PATH="$HOME/.tmuxifier/bin:$PATH"
+export TMUXIFIER_TMUX_OPTS="-2"
+eval "$(tmuxifier init -)"
+#}}}
+#-------- FASD (Jump and Open Files Quickly) {{{
 #------------------------------------------------------
 # DEMO: http://www.youtube.com/watch?v=ur81Y-mV5Us
 # LINK: https://github.com/clvv/fasd
 # DESC: jump to path or open recent files quickly from cli
 
 if which fasd >/dev/null; then
-  eval "$(fasd --init auto)"	# get fasd working, initialization code
+  eval "$(fasd --init auto)"	    # get fasd working, initialization code
 
   # different fasd listing
   # alias a='fasd -a'               # any
@@ -388,112 +438,238 @@ if which fasd >/dev/null; then
   # alias z='fasd_cd -d'            # cd, same functionality as j in autojump
   # alias zz='fasd_cd -d -i'        # cd with interactive selection
 
+  # FASD DOC
+  # f foo           # list frecent files matching foo
+  # a foo bar       # list frecent files and directories matching foo and bar
+  # f js$           # list frecent files that ends in js
+  # f -e vim foo    # run vim on the most frecent file matching foo
+  # mplayer `f bar` # run mplayer on the most frecent file matching bar
+  # z foo           # cd into the most frecent directory matching foo
+  # open `sf pdf`   # interactively select a file matching pdf and launch `open`
+
   # open with external programs
   alias m="f -e $PLAYER"		# open with video player
   alias o="a -e $OPENER"		# open any file
   alias v="f -e $EDITOR"		# open with text editor
 fi
+
 #}}}
+    #-------- FZF: Fuzzy Finder {{{
+    #------------------------------------------------------
+    # DEMO: https://www.youtube.com/playlist?list=PLqv94xWU9zZ2fMsMMDF4PjtNHCeBFbggD
+    # DESC: interactive fuzzy string matching
+    # LINK: https://github.com/junegunn/fzf
 
-#-------- Fuzzy Finder {{{
+    #-------- FZF: List bash Functions using fzf
+    rofi-fzf() { $(declare -f | awk '/fzf-/ {print $1}' | grep -i fzf | fzf -e -i) ;}
+
+    # fzf-clipboard() { echo -n "$(greenclip print | fzf -e -i | awk '{$1=$1};1')" | xclip -selection clipboard ;}
+    fzf-clipboard() { echo -n "$(greenclip print | fzf -e -i)" | xclip -selection clipboard ;}
+    # fzf-playonlinux() { playonlinux --run '$(ls ~/.PlayOnLinux/shortcuts | fzf -e -i )' ;}
+    # fzf-bookmarkscli() { sr "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | fzf -e -i )" ;}
+    # fzf-bookmarks() { surfraw "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | fzf -e -i )" ;}
+    # fzf-bookmarks2clipboard() { echo -n "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | fzf -e -i )" | awk '{print $2}' | xclip -selection clipboard ;}
+    # fzf-bookmarkstor() { surfraw -browser=tor-browser-en "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | fzf -e -i )" ;}
+    # fzf-tor() { torify w3m "$(cat ~/.config/surfraw/bookmarks | awk 'NF != 0 && !/^#/ && /\.onion/' |fzf -e -i | awk '{print $2}')" ;}
+
+    fzf-launcher() {
+      # note: xdg-open has a bug with .desktop files, so we cant use that shit
+      selected="$(ls /usr/share/applications | fzf -e -i )"
+      nohup `grep '^Exec' "/usr/share/applications/$selected" | tail -1 | sed 's/^Exec=//' | sed 's/%.//'` >/dev/null 2>&1&
+      # disown if exit 0 successfully
+      if [[ $? = 0 ]] ; then disown; fi
+    }
+
+    # https://junegunn.kr/2015/04/browsing-chrome-history-with-fzf/
+    # https://github.com/junegunn/fzf/wiki/examples#browsing-history
+    fzf-chromium_history() {
+      local cols sep
+      cols=$(( COLUMNS / 3 ))
+      sep='{::}'
+
+      # macos
+      # cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
+      # linux
+      \cp -f ~/.config/chromium/Default/History /tmp/h
+
+      sqlite3 -separator $sep /tmp/h \
+        "select substr(title, 1, $cols), url
+         from urls order by last_visit_time desc" |
+      awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
+      fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs xdg-open
+      # fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
+    }
+
+    fzf-locate() {
+      # xdg-open "$(locate "*" | fzf -e -i )"
+      # xdg-open "$(locate home media | fzf -e -i )" >/dev/null 2>&1 & disown
+      xdg-open "$(locate \
+        -d /var/lib/mlocate/mlocate.db \
+        -d ~/.updatedb/bingbong.db \
+        -d ~/.updatedb/kamui.db \
+        -d ~/.updatedb/wiiiso.db \
+        home media \
+        | fzf -e -i )" >/dev/null 2>&1 & disown
+
+
+      # some programs require a longer time to load
+      # sleep 1.5
+
+      # if cancle or fail then exit
+      # if [ $? -ne 0 ]
+      # then
+      #  	exit
+      # fi
+    }
+
+    # Ex: fzfr feh >> multi selection in fzf >> send everythign to feh
+    # http://www.reddit.com/r/commandline/comments/3abtup/fzfr_fzf_bash_function/
+    fzfr() { fzf -m -x | xargs -d'\n' -r "$@" ; }
+
+    # edit single line snippet
+    cfg-snippetrc() { $EDITOR ~/.snippetrc ;}
+    cfg-multisnippetrc() { $EDITOR ~/.multisnippet/"$(ls ~/.multisnippet | fzf -e -i)" ;}
+    multisnippet() { $EDITOR ~/.multisnippet/"$1" ;}
+    fzf-snippet() {
+      selected="$(cat ~/.snippetrc | sed '/^$/d' | sort -n | fzf -e -i )"
+      # remove tags, leading and trailing spaces, also no newline
+      echo "$selected" | sed -e s/\;\;\.\*\$// | sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\n' | xclip -selection clipboard
+    }
+
+    fzf-multisnippet() {
+      # location of snippets
+      dir=~/.multisnippet
+
+      # merge filename and tags into single line
+      results=$(for FILE in $dir/*
+      do
+        getname=$(basename $FILE)
+        gettags=$(head -n 1 $FILE)
+        echo -e "$getname \t $gettags"
+      done)
+
+      # copy content into clipboard without tags
+      filename=$(echo "$(echo "$results" | fzf -e -i )" | cut -d' ' -f 1)
+      sed 1d $dir/$filename | xclip -selection clipboard
+    }
+
+    # From FZF doc (do not work in bash)
+    # vf - fuzzy open with vim from anywhere
+    # ex: vf word1 word2 ... (even part of a file name)
+    # zsh autoload function
+    vf() {
+      local files
+
+      files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)"})
+
+      if [[ -n $files ]]
+      then
+         vim -- $files
+         print -l $files[1]
+      fi
+    }
+
+    # fd - cd to selected directory
+    fd() {
+      local dir
+      dir=$(find ${1:-.} -path '*/\.*' -prune \
+                      -o -type d -print 2> /dev/null | fzf +m) &&
+      cd "$dir"
+    }
+
+    # fda - including hidden directories
+    fda() {
+      local dir
+      dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+    }
+
+    # fdr - cd to selected parent directory
+    fdr() {
+      local declare dirs=()
+      get_parent_dirs() {
+        if [[ -d "${1}" ]]; then dirs+=("$1"); else return; fi
+        if [[ "${1}" == '/' ]]; then
+          for _dir in "${dirs[@]}"; do echo $_dir; done
+        else
+          get_parent_dirs $(dirname "$1")
+        fi
+      }
+      local DIR=$(get_parent_dirs $(realpath "${1:-$PWD}") | fzf-tmux --tac)
+      cd "$DIR"
+    }
+
+    # cf - fuzzy cd from anywhere
+    # ex: cf word1 word2 ... (even part of a file name)
+    # zsh autoload function
+    cf() {
+      local file
+
+      file="$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1)"
+
+      if [[ -n $file ]]
+      then
+         if [[ -d $file ]]
+         then
+            cd -- $file
+         else
+            cd -- ${file:h}
+         fi
+      fi
+    }
+
+    # cdf - cd into the directory of the selected file
+    cdf() {
+       local file
+       local dir
+       file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+    }
+
+    # tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
+    # `tm` will allow you to select your tmux session via fzf.
+    # `tm irc` will attach to the irc session (if it exists), else it will create it.
+    tm() {
+      [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+      if [ $1 ]; then
+        tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+      fi
+      session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+    }
+
+    # fasd & fzf change directory - open best matched file using `fasd` if given argument, filter output of `fasd` using `fzf` else
+    vfasd() {
+        [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
+        local file
+        file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+    }
+
+    # with FASD
+    zfzf() {
+      local dir
+      dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+    }
+    # }}}
+#-------- Powerline (Old config) {{{
 #------------------------------------------------------
-# DEMO: https://www.youtube.com/playlist?list=PLqv94xWU9zZ2fMsMMDF4PjtNHCeBFbggD
-# DESC: interactive fuzzy string matching
-# LINK: https://github.com/junegunn/fzf
+# Old Powerline config, keep it just in case
 
-rofi-fzf() { $(declare -f | awk '/fzf-/ {print $1}' | grep -i fzf | fzf -e -i) ;}
+# source /etc/profile
+# PATH=$PATH:~/bin
 
-# fzf-clipboard() { echo -n "$(greenclip print | fzf -e -i | awk '{$1=$1};1')" | xclip -selection clipboard ;}
-fzf-clipboard() { echo -n "$(greenclip print | fzf -e -i)" | xclip -selection clipboard ;}
-fzf-playonlinux() { playonlinux --run '$(ls ~/.PlayOnLinux/shortcuts | fzf -e -i )' ;}
-fzf-bookmarkscli() { sr "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | fzf -e -i )" ;}
-fzf-bookmarks() { surfraw "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | fzf -e -i )" ;}
-fzf-bookmarks2clipboard() { echo -n "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | fzf -e -i )" | awk '{print $2}' | xclip -selection clipboard ;}
-fzf-bookmarkstor() { surfraw -browser=tor-browser-en "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sed '/^#/d' | sed '/^\//d' | sort -n | fzf -e -i )" ;}
-fzf-tor() { torify w3m "$(cat ~/.config/surfraw/bookmarks | awk 'NF != 0 && !/^#/ && /\.onion/' |fzf -e -i | awk '{print $2}')" ;}
+# export TERM="screen-256color"
+# export PATH="$HOME/.local/bin:$PATH"
+# export POWERLINE_COMMAND=powerline
+# export POWERLINE_CONFIG_COMMAND=powerline-config
 
-fzf-launcher() {
-  # note: xdg-open has a bug with .desktop files, so we cant use that shit
-  selected="$(ls /usr/share/applications | fzf -e -i )"
-  nohup `grep '^Exec' "/usr/share/applications/$selected" | tail -1 | sed 's/^Exec=//' | sed 's/%.//'` >/dev/null 2>&1&
-  # disown if exit 0 successfully
-  if [[ $? = 0 ]] ; then disown; fi
-}
+# powerline-daemon -q
+# POWERLINE_BASH_CONTINUATION=1
+# POWERLINE_BASH_SELECT=1
 
-# https://junegunn.kr/2015/04/browsing-chrome-history-with-fzf/
-# https://github.com/junegunn/fzf/wiki/examples#browsing-history
-fzf-chromium_history() {
-  local cols sep
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
+# . ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
 
-  # macos
-  # cp -f ~/Library/Application\ Support/Google/Chrome/Default/History /tmp/h
-  # linux
-  \cp -f ~/.config/chromium/Default/History /tmp/h
-
-  sqlite3 -separator $sep /tmp/h \
-    "select substr(title, 1, $cols), url
-     from urls order by last_visit_time desc" |
-  awk -F $sep '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' |
-  fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs xdg-open
-  # fzf --ansi --multi | sed 's#.*\(https*://\)#\1#' | xargs open
-}
-
-fzf-locate() {
-  # xdg-open "$(locate "*" | fzf -e -i )"
-  # xdg-open "$(locate home media | fzf -e -i )" >/dev/null 2>&1 & disown
-  xdg-open "$(locate \
-    -d /var/lib/mlocate/mlocate.db \
-    -d ~/.updatedb/bingbong.db \
-    -d ~/.updatedb/kamui.db \
-    -d ~/.updatedb/wiiiso.db \
-    home media \
-    | fzf -e -i )" >/dev/null 2>&1 & disown
-
-
-  # some programs require a longer time to load
-  # sleep 1.5
-
-  # if cancle or fail then exit
-  # if [ $? -ne 0 ]
-  # then
-  #  	exit
-  # fi
-}
-
-
-# http://www.reddit.com/r/commandline/comments/3abtup/fzfr_fzf_bash_function/
-fzfr() { fzf -m -x | xargs -d'\n' -r "$@" ; }
-
-# edit single line snippet
-cfg-snippetrc() { $EDITOR ~/.snippetrc ;}
-cfg-multisnippetrc() { $EDITOR ~/.multisnippet/"$(ls ~/.multisnippet | fzf -e -i)" ;}
-multisnippet() { $EDITOR ~/.multisnippet/"$1" ;}
-fzf-snippet() {
-  selected="$(cat ~/.snippetrc | sed '/^$/d' | sort -n | fzf -e -i )"
-  # remove tags, leading and trailing spaces, also no newline
-  echo "$selected" | sed -e s/\;\;\.\*\$// | sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\n' | xclip -selection clipboard
-}
-
-fzf-multisnippet() {
-  # location of snippets
-  dir=~/.multisnippet
-
-  # merge filename and tags into single line
-  results=$(for FILE in $dir/*
-  do
-    getname=$(basename $FILE)
-    gettags=$(head -n 1 $FILE)
-    echo -e "$getname \t $gettags"
-  done)
-
-  # copy content into clipboard without tags
-  filename=$(echo "$(echo "$results" | fzf -e -i )" | cut -d' ' -f 1)
-  sed 1d $dir/$filename | xclip -selection clipboard
-}
-
-# }}}
+#if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
+#    source ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+#fi
+#}}}
 
 ###########################################################################
 # >>>--------------------    ARCHIVE MANAGER  ------------------------<<< #
@@ -577,7 +753,7 @@ convert-to-archive-cbr() {
 #-------- Detox Filename Cleanup {{{
 #------------------------------------------------------
 # DESC: cleanup filename to different styles
-
+    
 # eg. FOO BAR LinuX.TAR.GZ --> foo_bar_linux.tar.gz
 detox-unix() {
   myArray=( "$@" )
@@ -604,8 +780,6 @@ detox-human-dash() {
     mv "$arg" "$filter_name"
   done
 }
-
-
 # }}}
 #-------- Clean Stuff {{{
 #------------------------------------------------------
@@ -654,72 +828,74 @@ padme() {
     mv "$1" ${1/$num/$paddednum}
 	echo ${1/$num/$paddednum}
 }
-
+#}}}
 
 ###########################################################################
 # >>>--------------------    KEYBOARD BINDING   ----------------------<<< #
 ###########################################################################
 
+#-------- Vim Toggle {{{
+#------------------------------------------------------
 vim-toggle() {
 # https://xpressrazor.wordpress.com/2014/03/30/script-to-toggle-keys
 # toggle caplock and esc key
 if xmodmap -pke | egrep -i "escape" | egrep -i "keycode.*9.*"; then
- echo "Changing from original to mapped"
- xmodmap -e "clear lock"
- xmodmap -e "keycode 66 = Escape"
- xmodmap -e "keycode 9 = Caps_Lock"
- xmodmap -e "add Lock = Caps_Lock"
+  echo "Changing from original to mapped"
+  xmodmap -e "clear lock"
+  xmodmap -e "keycode 66 = Escape"
+  xmodmap -e "keycode 9 = Caps_Lock"
+  xmodmap -e "add Lock = Caps_Lock"
 else
- echo "Changing back from mapped to original"
- xmodmap -e "clear lock"
- xmodmap -e "keycode 9 = Escape"
- xmodmap -e "keycode 66 = Caps_Lock"
- xmodmap -e "add Lock = Caps_Lock"
+  echo "Changing back from mapped to original"
+  xmodmap -e "clear lock"
+  xmodmap -e "keycode 9 = Escape"
+  xmodmap -e "keycode 66 = Caps_Lock"
+  xmodmap -e "add Lock = Caps_Lock"
 fi
 }
-
-
-
-
+#}}}
+#-------- Set Wallpaper {{{
+#------------------------------------------------------
 setwallpaper() {
-ConnectedMonitor="$(xrandr | awk '/ connected/ {print $1}' | head -n 1)"
-PATH_WALLPAPER=~/Pictures/Wallpapers
-
-	# find current running windows manager
-	CURRENT_WM="$(wmctrl -m | grep "Name:" | awk '{print $2}')"
-
-	# mate
-	if [ $CURRENT_WM = Marco ]; then
-	gsettings set org.mate.background picture-filename "$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
-	fi
-
-	# xfce
-	# tutorial video: http://www.youtube.com/watch?v=tL9uVT8D6k4
-	if [[ $DESKTOP_SESSION = Xfwm4 ]] || [[ $DESKTOP_SESSION = "Xfce Session" ]]; then
-	xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor"$ConnectedMonitor"/workspace0/last-image -s "$PWD"/"$1"
-	fi
-
-	# i3
-	if [ $DESKTOP_SESSION = i3 ]; then
-	# feh --randomize --bg-fill "$PATH_WALLPAPER"/*
-	feh --randomize --bg-fill "$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
-	fi
-
-	# gnome shell
-	# tutorial video: http://www.youtube.com/watch?v=B_VnPXy3VCw
-	if [ $DESKTOP_SESSION = GNOME ]; then
-	gsettings set org.gnome.desktop.background picture-uri file://"$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
-	fi
-
-
-	# gnome2
-	if [ $DESKTOP_SESSION = GNOME ]; then
-	gconftool-2 -t str -s /desktop/gnome/background/picture_filename "$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
-	fi
-
-	# lxde
-	# tutorial video: http://www.youtube.com/watch?v=5xzfBiHuknk
-	if [ $DESKTOP_SESSION = LXDE ]; then
-	pcmanfm -w "$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
-	fi
+  ConnectedMonitor="$(xrandr | awk '/ connected/ {print $1}' | head -n 1)"
+  PATH_WALLPAPER=~/Pictures/Wallpapers
+  
+  # find current running windows manager
+  CURRENT_WM="$(wmctrl -m | grep "Name:" | awk '{print $2}')"
+  
+  # mate
+  if [ $CURRENT_WM = Marco ]; then
+  gsettings set org.mate.background picture-filename "$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
+  fi
+  
+  # xfce
+  # tutorial video: http://www.youtube.com/watch?v=tL9uVT8D6k4
+  if [[ $DESKTOP_SESSION = Xfwm4 ]] || [[ $DESKTOP_SESSION = "Xfce Session" ]]; then
+  xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor"$ConnectedMonitor"/workspace0/last-image -s "$PWD"/"$1"
+  fi
+  
+  # i3
+  if [ $DESKTOP_SESSION = i3 ]; then
+  # feh --randomize --bg-fill "$PATH_WALLPAPER"/*
+  feh --randomize --bg-fill "$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
+fi
+  
+  # gnome shell
+  # tutorial video: http://www.youtube.com/watch?v=B_VnPXy3VCw
+  if [ $DESKTOP_SESSION = GNOME ]; then
+  gsettings set org.gnome.desktop.background picture-uri file://"$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
+  fi
+  
+  
+  # gnome2
+  if [ $DESKTOP_SESSION = GNOME ]; then
+  gconftool-2 -t str -s /desktop/gnome/background/picture_filename "$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
+  fi
+  
+  # lxde
+  # tutorial video: http://www.youtube.com/watch?v=5xzfBiHuknk
+  if [ $DESKTOP_SESSION = LXDE ]; then
+  pcmanfm -w "$(find $PATH_WALLPAPER -type f -iregex '.*\.\(bmp\|gif\|jpg\|png\)$' | shuf -n1)"
+ fi
 }
+#}}}

@@ -235,6 +235,9 @@
 
     " Match Tmux line to Vim airline colorscheme
     Plugin 'edkolev/tmuxline.vim'
+
+    " Save View, Cursor, Folds, then reload them
+    Plugin 'vim-scripts/restore_view.vim.git'
     
 
     call vundle#end()            " required

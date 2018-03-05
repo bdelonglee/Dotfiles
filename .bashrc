@@ -1,13 +1,17 @@
-# TESTER2
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+###########################################################################
+# >>>--------------------    BASH CONFIGURATION ----------------------<<< #
+###########################################################################
 
+#-------- Do nothing if not interactive {{{
+#------------------------------------------------------
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
+#}}}
+#-------- Bash Options {{{
+#------------------------------------------------------
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -24,18 +28,25 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+#}}}
+#-------- Completion Options{{{
+#------------------------------------------------------
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
-
+#}}}
+#-------- Colors {{{
+#------------------------------------------------------
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm|xterm-color|*-256color) color_prompt=yes;;
@@ -87,124 +98,69 @@ if [ -x /usr/bin/dircolors ]; then
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
-#-------------------------
+fi
+#}}}
+#-------- Unknown, commented {{{
+#------------------------------------------------------
+#if [ -x /usr/bin/mint-fortune ]; then
+#     /usr/bin/mint-fortune
+#fi
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# set variable identifying the chroot you work in (used in the prompt below)
+# if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+#     debian_chroot=$(cat /etc/debian_chroot)
+#     fi
+
 # A TESTER
-
 # this is notes for video: http://www.youtube.com/watch?v=6_PVJQvhBeI
-
 # maximize / unmaximize panes 
-
 # NEW CODE, requires 1 hotkey only to switch back and fort
 # credit youtuber: Gnomeye
 # bind } run "if [[ $(tmux list-window) =~ tmux-zoom ]]; then tmux last-window; tmux swap-pane -s tmux-zoom.0; tmux kill-window -t tmux-zoom; else tmux new-window -d -n tmux-zoom 'clear && echo TMUX ZOOM && read'; tmux swap-pane -s tmux-zoom.0; tmux select-window -t tmux-zoom;fi"
 
-fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+#}}}
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+###########################################################################
+# >>>--------------------    CUSTOM BIND -----------------------------<<< #
+###########################################################################
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
+#-------- Ranger-cd {{{
+#------------------------------------------------------
+# This binds Ctrl-O to ranger-cd:
+bind '"\C-o":"ranger-cd\C-m"'
+#}}}
 
-if [ -x /usr/bin/mint-fortune ]; then
-     /usr/bin/mint-fortune
-fi
+###########################################################################
+# >>>--------------------    SOURCE EXTERNAL -------------------------<<< #
+###########################################################################
 
+#-------- Source FZF bash {{{
+#------------------------------------------------------
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-
-###########################################################
-# ALIAS
-###########################################################
-
-alias tmux='tmux -2'
-
-############################################################
-## POWERLINE
-############################################################
-
-#source /etc/profile
-#PATH=$PATH:~/bin
-
-#export TERM="screen-256color"
-#export PATH="$HOME/.local/bin:$PATH"
-#export POWERLINE_COMMAND=powerline
-#export POWERLINE_CONFIG_COMMAND=powerline-config
-
-#powerline-daemon -q
-#POWERLINE_BASH_CONTINUATION=1
-#POWERLINE_BASH_SELECT=1
-#. ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
-
-##if [ -f ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
-##    source ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
-##fi
-
-###########################################################
-# TOOLS
-###########################################################
-
-# FASD ----------------------------------------------------
-eval "$(fasd --init auto)"
-
-alias v='f -e vim' # quick opening files with vim
-alias m='f -e mplayer' # quick opening files with mplayer
-alias o='a -e xdg-open' # quick opening files with xdg-open
-
-# FASD DOC
-# f foo           # list frecent files matching foo
-# a foo bar       # list frecent files and directories matching foo and bar
-# f js$           # list frecent files that ends in js
-# f -e vim foo    # run vim on the most frecent file matching foo
-# mplayer `f bar` # run mplayer on the most frecent file matching bar
-# z foo           # cd into the most frecent directory matching foo
-# open `sf pdf`   # interactively select a file matching pdf and launch `open`
-
-
-# FZF -----------------------------------------------------
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# TMUXIFIER -----------------------------------------------
-export PATH="$HOME/.tmuxifier/bin:$PATH"
-export TMUXIFIER_TMUX_OPTS="-2"
-eval "$(tmuxifier init -)"
-
-
+#}}}
+#-------- Source: bashrc_local, bashrc_alias, common_alias {{{
+#------------------------------------------------------
 
 if [ -f ~/.bashrc_alias ]; then
     source ~/.bashrc_alias
+fi
+
+if [ -f ~/.bashrc_local ]; then
+    source ~/.bashrc_local
 fi
 
 if [ -f ~/.common_alias ]; then
     source ~/.common_alias
 fi
 
-
-# This binds Ctrl-O to ranger-cd:
-bind '"\C-o":"ranger-cd\C-m"'
+#}}}
