@@ -41,21 +41,20 @@ alias .5='cd ../../../../..'
 alias .6='cd ../../../../../../'
 
 #list
+alias l='ls --color=auto'
 alias ls='ls --color=auto'
-alias la='ls -a'
+alias la='ls -A --color=auto'
 alias lA='ls -Ap | grep -v / | egrep "^\."'
-alias ll='ls -lah'
-alias l='ls' 					
+alias ll='ls -lh'
 alias l.="ls -A | egrep '^\.'"      
 alias lltr='ls -ltrh'
 alias lltra='ls -ltrha'
 alias ltr='ls -ltrh'
 alias ltra='ls -ltrha'
 
-alias lsd='ls -1d */'					# ls folders only
+alias lsd="ls -1d */"					# ls folders only
 alias lsda='find . -maxdepth 1 -type d'
 alias lsdA='ls -Ap | egrep "^\..*/$"'
-alias l='ls -l'
 alias lsf='ls --color=always -p | grep -v '/$''		# ls files only
 alias lsa='ls -GghA'
 alias lsx='ls -lX'
@@ -82,11 +81,23 @@ alias mount='mount |column -t'
 #free
 alias free="free -mt"
 
+# Show the active ports
+alias port='netstat -tulanp'
+
+# Get your public IP address and host.
+alias ipinfo="curl ifconfig.me && curl ifconfig.me/host"
+
 #continue download
 alias wget="wget -c"
 
 #userlist
 alias userlist="cut -d: -f1 /etc/passwd"
+
+# Busy
+alias busy="cat /dev/urandom | hexdump -C | grep "ca fe""
+
+# make directory with YYY-MM-DD name
+mkdate() { local DIR="$(date +%F)-$1" ; mkdir "$DIR" && cd "$DIR" ; }
 
 #merge new settings
 alias merge="xrdb -merge ~/.Xresources"
@@ -132,6 +143,17 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
+
+# quickly search through your command history: histg [keyword]
+alias histg="history | grep"
+
+# a cheap version of "tree" command
+# alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
+
+alias c="clear"
+
+# Generate a strong password
+alias genpasswd="strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n'; echo"
 
 # }}}
 #-------- Clipboard and Upload {{{
@@ -261,7 +283,7 @@ function ranger-cd {
 }        
 
 cpbak() { cp $1{,.bak} ;} # create backup copy
-mkdircd() { mkdir -p -v $1; cd $1 ;} # create folder then cd into it
+mcd() { mkdir -p -v $1; cd $1 ;} # create folder then cd into it
 open() { xdg-open "$@" > /dev/null 2>&1 ;} # open with default GUI program
 
 #update-grub() { sudo grub-mkconfig -o /boot/grub/grub.cfg ;}
@@ -294,6 +316,9 @@ lsl() {
   | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(" %0o ",k);print}'
 }
 
+# Sort by size
+sbs() { du -b --max-depth 1 | sort -nr | perl -pe 's{([0-9]+)}{sprintf "%.1f%s", $1>=2**30? ($1/2**30, "G"): $1>=2**20? ($1/2**20, "M"): $1>=2**10? ($1/2**10, "K"): ($1, "")}e';}
+
 # quickly cd out of directories using numbers, example: up 2
 up() { local x='';for i in $(seq ${1:-1});do x="$x../"; done;cd $x; }
 
@@ -306,6 +331,9 @@ file-type() { file --mime-type -b "$@" ;}
 
 # call vim help page from shell prompt
 function :h { vim +":h $1" +'wincmd o' +'nnoremap q :q!<CR>' ;}
+
+# this function computes the md5sum of a file  and compares it using grep
+md5check() { md5sum "$1" | grep "$2";}
 
 # search commandlinefu.com
 cmdfu() { curl "http://www.commandlinefu.com/commands/matching/$(echo "$@" \
@@ -320,7 +348,7 @@ sizeof() {
 }
 
 # Shortcut to change directory and list contents
-cdls() {
+cls() {
     if [ -d "$1" ]; then
         cd "$1"
         ls -l

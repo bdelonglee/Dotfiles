@@ -120,7 +120,7 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git tmux branch colored-man-pages colorize common-aliases copydir copyfile cp dircycle dirhistory extract jump last-working-dir python rsync sublime textmate web-search)
-plugins=(git, zsh-autosuggestions, copydir, copyfile, copybuffer, colorize, dirhistory, vi-mode, web-search )
+plugins=(git, zsh-autosuggestions, fzf-zsh, copydir, copyfile, copybuffer, colorize, dirhistory, vi-mode, web-search )
 
  #}}}
 #-------- Oh-My-Zsh Highlighting {{{
@@ -131,6 +131,33 @@ plugins=(git, zsh-autosuggestions, copydir, copyfile, copybuffer, colorize, dirh
 #}}}
 
 source $ZSH/oh-my-zsh.sh
+
+###########################################################################
+# >>>--------------------    FUNCTIONS -------------------------------<<< #
+###########################################################################
+
+#-------- Fix FZF TRL+R {{{
+#------------------------------------------------------
+
+# CTRL-R - Paste the selected command from history into the command line
+#fzf-history-widget() {
+#  local selected restore_no_bang_hist
+#  if selected=$(fc -l 1 | $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r -q "$LBUFFER"); then
+#    num=$(echo "$selected" | head -1 | awk '{print $1}' | sed 's/[^0-9]//g')
+#    LBUFFER=!$num
+#    if setopt | grep nobanghist > /dev/null; then
+#      restore_no_bang_hist=1
+#      unsetopt no_bang_hist
+#    fi
+#    zle expand-history
+#    [ -n "$restore_no_bang_hist" ] && setopt no_bang_hist
+#  fi
+#  zle redisplay
+#}
+#zle     -N   fzf-history-widget
+#bindkey '^R' fzf-history-widget
+
+#}}}
 
 ###########################################################################
 # >>>--------------------    VIM MODE --------------------------------<<< #
