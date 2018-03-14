@@ -1,6 +1,23 @@
 " ############################################################################
-" # >>> -----------             POWERLINE                  ------------- <<< #
+" # >>> -----------        RUNTIME PATH & PATH             ------------- <<< #
 " ############################################################################
+
+" PATH & RTP {{{--------------------------------------------------------------
+
+    " force vim to be recursive when use :find etc...
+    set path+=**
+
+    " set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+    set rtp+=~/.fzf
+
+    " runtime path for CtrlP
+    set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/Vundle.vim
+
+"}}}
+" POWERLINE {{{---------------------------------------------------------------
 
     " See Runtime Path Section
     let g:airline_powerline_fonts = 1
@@ -11,9 +28,13 @@
     " Use 256 colours (Use this setting only if your terminal supports 256 colours)
     set t_Co=256
 
+"}}}
+
 " ############################################################################
 " # >>> -----------               AIRLINE                  ------------- <<< #
 " ############################################################################
+
+" AIRLINE THEME {{{-----------------------------------------------------------
 
     " vim-airline {
     " Set configuration options for the statusline plugin vim-airline.
@@ -37,114 +58,144 @@
     	let g:airline_right_sep='‹' " Slightly fancier than '<'
         endif
     endif
-
-" ############################################################################
-" # >>> -----------               RUNTIME PATH             ------------- <<< #
-" ############################################################################
-
-    " set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-    set rtp+=~/.fzf
-
-    " runtime path for CtrlP
-    set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-    " set the runtime path to include Vundle and initialize
-    set rtp+=~/.vim/bundle/Vundle.vim
+"}}}
 
 " ############################################################################
 " # >>> -----------               VUNDLE                   ------------- <<< #
 " ############################################################################
 
-    " vundle pre-required
     set nocompatible              " required
     filetype off                  " required
-    
+
+" VUNDLE START {{{------------------------------------------------------------
 
     " -> VUNDLE START ------------------------------------------------------
     " alternatively, pass a path where Vundle should install plugins
     " call vundle#begin('~/some/path/here')
     call vundle#begin()
 
-    " -> VIM AIRLINE -------------------------------------------------------
+    " -> YCM {{{------------------------------------------------------------
+    Plugin 'Valloric/YouCompleteMe'
+
+    "}}}
+    " -> ULTISNIPS {{{------------------------------------------------------
+    " Track the engine.
+    Plugin 'SirVer/ultisnips'
+
+    " Snippets are separated from the engine. Add this if you want them:
+    Plugin 'honza/vim-snippets'
+
+    " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    " let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+    " If you want :UltiSnipsEdit to split your window.
+    let g:UltiSnipsEditSplit="vertical"
+    let g:UltiSnipsExpandTrigger="<c-j>"
+
+    "}}}
+    " -> VIM AIRLINE {{{----------------------------------------------------
     " Vim airline light
     " Plugin 'itchyny/lightline.vim'
     Plugin 'vim-airline/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
 
-    " -> VIM-EXPAND-REGION -------------------------------------------------
-    " + - expand shrink visual selection
+    "}}}
+    " -> VIM-EXPAND-REGION {{{----------------------------------------------
+    " + _ expand shrink visual selection
     Plugin 'terryma/vim-expand-region'
 
-    " -> MRU ---------------------------------------------------------------
-    " Most Recently Used  (MRU)
+    "}}}
+    " -> MRU {{{------------------------------------------------------------
+    " Most Recently Used  (:MRU)
     Plugin 'yegappan/mru'
 
-    " -> BUFEXPLORER -------------------------------------------------------
+    "}}}
+    " -> BUFEXPLORER {{{----------------------------------------------------
     " Buffers explorer leader be/bs/bv    f F v V a t
-    Plugin 'vim-scripts/bufexplorer.zip.git'
+    " No more need since Ctrl-space
+    " Plugin 'vim-scripts/bufexplorer.zip.git'
 
-    " -> VUNDLE ------------------------------------------------------------
+    "}}}
+    " -> VUNDLE {{{---------------------------------------------------------
     " let Vundle manage Vundle, required
     Plugin 'gmarik/Vundle.vim'
 
-    " -> VIM-TMUX ----------------------------------------------------------
+    "}}}
+    " -> VIM-TMUX {{{-------------------------------------------------------
 	" syntax for .tmux.conf
     Plugin 'tmux-plugins/vim-tmux'
 
-    " -> VIM-TMUX-NAVIGATOR ------------------------------------------------
+    "}}}
+    " -> VIM-TMUX-NAVIGATOR {{{---------------------------------------------
     Bundle 'christoomey/vim-tmux-navigator'
 
-    " -> TAGBAR ------------------------------------------------------------
+    "}}}
+    " -> TAGBAR {{{---------------------------------------------------------
     " Class/module browser > 
     " dependencies on exuberant-ctags (deprecated) or universal-ctags
     Plugin 'majutsushi/tagbar'                  
 
-    " -> CTRLP -------------------------------------------------------------
-    " Fast transitions on project files
+    "}}}
+    " -> CTRLP {{{----------------------------------------------------------
+    " Fast transitions on project files >> Ctrl+p
     Plugin 'kien/ctrlp.vim'                     
-    " Ctrl+p
     
-    " -> SUPERTAB ----------------------------------------------------------
+    "}}}
+    " -> SUPERTAB {{{-------------------------------------------------------
     Plugin 'ervandew/supertab'
     
-    " -> VIM-PEEKABOO ------------------------------------------------------
+    "}}}
+    " -> VIM-PEEKABOO {{{---------------------------------------------------
+    " show registers in splitted window when use " or @
     Plugin 'junegunn/vim-peekaboo'
-    " show buffers in splitted window when use " or @
     
-    " -> INDENTLINE --------------------------------------------------------
-    " Bundle 'Yggdroot/indentLine'
+    "}}}
+    " -> INDENTLINE {{{-----------------------------------------------------
     " trace vertical lines to show indentation level
+    " Bundle 'Yggdroot/indentLine'
     " let g:indentLine_char = '|'
     " let g:indentLine_color_term = 239
     
-    " -> VIM-ESAYMOTION ----------------------------------------------------
-    Plugin 'easymotion/vim-easymotion'
+    "}}}
+    " -> VIM-ESAYMOTION {{{-------------------------------------------------
     "\s \w \L
+    Plugin 'easymotion/vim-easymotion'
 
-    " -> VIM-SURROUND ------------------------------------------------------
-    Plugin 'tpope/vim-surround'
+    "}}}
+    " -> VIM-SURROUND {{{---------------------------------------------------
     " cs]' (replace ] par ') cs'<q>  cst'  (t=tag)  ysiw]  cs]{   cs]}   yss)  (sentence) ds)
+    Plugin 'tpope/vim-surround'
 
-    " -> VIM-REPEAT --------------------------------------------------------
-    Plugin 'tpope/vim-repeat'
+    "}}}
+    " -> VIM-REPEAT {{{-----------------------------------------------------
     " works with surround
+    Plugin 'tpope/vim-repeat'
 
-    " -> VIM-COMMENTARY ----------------------------------------------------
-    Plugin 'tpope/vim-commentary'
+    "}}}
+    " -> VIM-COMMENTARY {{{-------------------------------------------------
     " gcc (1 line) gcap (a paragraph) gc2j (2lines) :7,17Commentary  :g/TODO/Commentary
+    Plugin 'tpope/vim-commentary'
 
-    " -> VIM-UNIMPAIRED ----------------------------------------------------
-    Plugin 'tpope/vim-unimpaired'
+    "}}}
+    " -> VIM-UNIMPAIRED {{{-------------------------------------------------
     " ]q :cnext [q :cprevious, ]a :next [b :bprevious
+    Plugin 'tpope/vim-unimpaired'
 
-    " -> VIM-MULTIPLE-CURSOR -----------------------------------------------
-    Plugin 'terryma/vim-multiple-cursors'
+    "}}}
+    " -> VIM-MULTIPLE-CURSOR {{{--------------------------------------------
     " Sublime style <C-n> <C-p> <C-x>
+    Plugin 'terryma/vim-multiple-cursors'
 
-    " -> VIM-SYNTASTIC -----------------------------------------------------
+    "}}}
+    " -> VIM-SYNTASTIC {{{--------------------------------------------------
     Plugin 'vim-syntastic/syntastic'
 
-    " -> VIM-ESAY-ALIGN ----------------------------------------------------
+    "}}}
+    " -> VIM-ESAY-ALIGN {{{-------------------------------------------------
     Plugin 'junegunn/vim-easy-align'
     xmap ga <Plug>(EasyAlign)
     " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -161,15 +212,17 @@
     " easy-align ancestor
     " Bundle 'godlygeek/tabular'
 
-    " -> GOYO --------------------------------------------------------------
+    "}}}
+    " -> GOYO {{{-----------------------------------------------------------
     Plugin 'junegunn/goyo.vim'
     " :Goyo toggle goyo
     " :Goyo! turn off goyo
     " :Goyo 120x30
     " :Goyo 50%+25%x50%-25%
     " The window can be resized with the usual [count]<CTRL-W> + >, <, +, - keys.
-    
-    " -> LIMELIGHT --------------------------------------------------------- 
+
+    "}}}
+    " -> LIMELIGHT {{{------------------------------------------------------ 
     " Plugin 'junegunn/limelight.vim'
     " " Limelight [0.0 ~ 1.0]   Turn Limelight on
     " " Limelight!              Turn Limelight off
@@ -199,20 +252,23 @@
     " "   Set it to -1 not to overrule hlsearch
     " " let g:limelight_priority = -1
 
-    " -> VIMYA -------------------------------------------------------------
+    "}}}
+    " -> VIMYA {{{----------------------------------------------------------
     " http://www.vim.org/scripts/script.php?script_id=2626
     " Connect to maya 
     " tail plugin
     " http://www.vim.org/scripts/script.php?script_id=1714
     " allow maya's script editor log output in vim's Tab
 
-    " -> MISC COLORSCHEME --------------------------------------------------
+    "}}}
+    " -> MISC COLORSCHEME {{{-----------------------------------------------
     " Color theme
     " Plugin 'nightsense/vim-crunchbang'
     " Plugin 'junegunn/seoul256.vim'
     Plugin 'dylanaraps/wal.vim'
 
-    " -> TMUX-COMPLETE -----------------------------------------------------
+    "}}}
+    " -> TMUX-COMPLETE {{{--------------------------------------------------
     " Bundle 'wellle/tmux-complete.vim'
     " " add visible word in tmux panes in completion list
     
@@ -225,46 +281,60 @@
     " Bundle 'christoomey/vim-sort-motion'
     " gs2j (2 lines)  gsip (in paragraph) gsii (indent) gsi( within parenthesis 
 
-    " -> CTRL-SPACE --------------------------------------------------------
+    "}}}
+    " -> CTRL-SPACE {{{-----------------------------------------------------
     Plugin 'vim-ctrlspace/vim-ctrlspace'
 
-    " -> I3-VIM-SYNTAX -----------------------------------------------------
+    "}}}
+    " -> I3-VIM-SYNTAX {{{--------------------------------------------------
     " i3 Syntax file
     " http://raw.github.com/PotatoesMaster/i3-vim-syntax/master/syntax/i3.vim
     " Plugin 'PotatoesMaster/i3-vim-syntax'
 
+    "}}}
+    " -> TMUX-LINE {{{------------------------------------------------------
     " Match Tmux line to Vim airline colorscheme
     Plugin 'edkolev/tmuxline.vim'
 
+    "}}}
+    " -> RESTORE VIEW {{{---------------------------------------------------
     " Save View, Cursor, Folds, then reload them
     Plugin 'vim-scripts/restore_view.vim.git'
     
+    "}}}
 
     call vundle#end()            " required
-    filetype plugin indent on    " required
-    
-    filetype plugin on
+
+"}}}
 
 " ############################################################################
 " # >>> -----------               OPTIONS                  ------------- <<< #
 " ############################################################################
 
-	" Don't redraw while executing macros (good performance config)
-	set lazyredraw 
-	
-	" For regular expressions turn magic on
-	set magic
-	
-	" How many tenths of a second to blink when matching brackets
-	set mat=2
-	
-	" Add a bit extra margin to the left
-	set foldcolumn=1
+" MISC {{{--------------------------------------------------------------------
 
-" ----------------------------------------------------------------------------
-"  GLOBAL OPTIONS ------------------------------------------------------------
+	set lazyredraw    " Don't redraw while executing macros (good performance config)
+	set magic         " For regular expressions turn magic on
+	set mat=2         " How many tenths of a second to blink when matching brackets
+	set foldcolumn=1  " Add a bit extra margin to the left
+    filetype plugin indent on    " required
+    filetype plugin on
 
-" SOUNDS ---------------------------------------------------------------------
+"}}}
+" FOLDS {{{-------------------------------------------------------------------
+
+    " enable folding; http://vim.wikia.com/wiki/Folding
+    set foldmethod=marker
+
+    " fold color
+    hi Folded cterm=bold ctermfg=DarkBlue ctermbg=none
+    hi FoldColumn cterm=bold ctermfg=DarkBlue ctermbg=none
+
+    "refocus folds; close any other fold except the one that you are on
+    nnoremap ,z zMzvzz
+
+"}}}
+" SOUNDS {{{------------------------------------------------------------------
 
 	" No annoying sound on errors
 	set noerrorbells
@@ -276,8 +346,9 @@
 	if has("gui_macvim")
 	    autocmd GUIEnter * set vb t_vb=
 	endif
-	
-" DISPLAY --------------------------------------------------------------------
+
+"}}
+" DISPLAY {{------------------------------------------------------------------
 
     syntax enable
     
@@ -321,7 +392,8 @@
     "autocmd InsertLeave * :highlight CursorLine cterm=bold ctermbg=Black ctermfg=NONE term=bold
     "autocmd InsertEnter * :highlight CursorLine cterm=NONE ctermbg=Black ctermfg=NONE
 
-" BEHAVIOR -------------------------------------------------------------------
+"}}
+" BEHAVIOR {{-----------------------------------------------------------------
 
     " Encoding
     set enc=utf-8
@@ -348,8 +420,10 @@
     " ignore some files when opening
     set wildignore=*.swp,*.bak,*.pyc,*.class
 
-" ----------------------------------------------------------------------------
-" TIME OUT -------------------------------------------------------------------
+"}}
+
+"}}}
+" TIME OUT {{{----------------------------------------------------------------
 
     " Time out on key codes but not mappings.
     " Basically this makes terminal Vim work sanely.
@@ -357,8 +431,8 @@
     set ttimeout
     set ttimeoutlen=10
 
-" ----------------------------------------------------------------------------
-" UNDO & BACKUPS -------------------------------------------------------------
+"}}}
+" UNDO & BACKUPS {{{----------------------------------------------------------
 
     " remember more command
     set history=1000
@@ -385,8 +459,8 @@
         call mkdir(expand(&directory), "p")
     endif
 
-" ----------------------------------------------------------------------------
-" SEARCH OPTIONS -------------------------------------------------------------
+"}}}
+" SEARCH OPTIONS {{{----------------------------------------------------------
 
     " set show matching parenthesis
     set showmatch
@@ -399,8 +473,8 @@
     set ignorecase
     set smartcase
 
-" ----------------------------------------------------------------------------
-" PYTON INDENT ---------------------------------------------------------------
+"}}}
+" PYTON INDENT {{{------------------------------------------------------------
 
     " au BufNewFile,BufRead *.py
     set tabstop=4
@@ -412,19 +486,19 @@
     set fileformat=unix
     
     " Enable folding
-    set foldmethod=indent
+    " set foldmethod=indent
     set foldlevel=99
     
     " Enable folding with the spacebar
     "nnoremap <space> za
 
-" ----------------------------------------------------------------------------
-" MOUSE CONTROL --------------------------------------------------------------
+"}}}
+" MOUSE CONTROL {{{-----------------------------------------------------------
 
     set mouse=a
     
-" ----------------------------------------------------------------------------
-"  WILDMENU COMPLETION -------------------------------------------------------
+"}}}
+"  WILDMENU COMPLETION {{{----------------------------------------------------
 
     set wildmenu                                     " Better command-line completion
     set wildmode=list:longest
@@ -447,16 +521,16 @@
     set wildignore+=classes
     set wildignore+=lib
 
-" ----------------------------------------------------------------------------
-"  VISUAL MODE ---------------------------------------------------------------
+"}}}
+"  VISUAL MODE {{{------------------------------------------------------------
 
 	" Visual mode pressing * or # searches for the current selection
 	" Super useful! From an idea by Michael Naumann
 	vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 	vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 	
-" ----------------------------------------------------------------------------
-"  STATUS LINE ---------------------------------------------------------------
+"}}}
+"  STATUS LINE {{{------------------------------------------------------------
 
     " Automatically displays all buffers when there's only one tab open.
     let g:airline#extensions#tabline#enabled = 1
@@ -475,8 +549,8 @@
     " start tmuxline even without vim running
     let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
-" ----------------------------------------------------------------------------
-"  SYNTASTIC -----------------------------------------------------------------
+"}}}
+"  SYNTASTIC {{{--------------------------------------------------------------
 
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
@@ -489,8 +563,8 @@
 
     let g:syntastic_python_checkers = ['pylint']
 
-" ----------------------------------------------------------------------------
-"  CTRL-SPACE ----------------------------------------------------------------
+"}}}
+"  CTRL-SPACE {{{-------------------------------------------------------------
 
     if has("gui_running")
         " Settings for MacVim and Inconsolata font
@@ -505,10 +579,13 @@
     " increase plugin fuzzy search delay
     let g:CtrlSpaceSearchTiming = 500
 
+"}}}
+
 " ############################################################################
 " # >>> -----------               BINDINGS                 ------------- <<< #
 " ############################################################################
 
+" LEADER ESC COMMAND KEYS {{{-------------------------------------------------
     " LEADER
     " let mapleader=','
     " let mapleader="\<Space>"
@@ -536,12 +613,12 @@
     nnoremap ; :
     nnoremap : ;
 
-" ----------------------------------------------------------------------------
-" TAG BAR --------------------------------------------------------------------
+"}}}
+" TAG BAR {{{-----------------------------------------------------------------
     nmap <F8> :TagbarToggle<CR>
 
-" ----------------------------------------------------------------------------
-" EASY MOTION-----------------------------------------------------------------
+"}}}
+" EASY MOTION {{{-------------------------------------------------------------
 
     map <Leader> <Plug>(easymotion-prefix)
     
@@ -560,8 +637,8 @@
     map  <Leader>w <Plug>(easymotion-bd-w)
     nmap <Leader>w <Plug>(easymotion-overwin-w)
 
-" ----------------------------------------------------------------------------
-" TMUX -----------------------------------------------------------------------
+"}}}
+" TMUX {{{--------------------------------------------------------------------
 
     " TMUX: if no vim-tmux-navigator, do the same in Vim only
     " split navigations
@@ -570,8 +647,8 @@
     "nnoremap <C-L> <C-W><C-L>
     "nnoremap <C-H> <C-W><C-H>
 
-" ----------------------------------------------------------------------------
-" TABULARIZE -----------------------------------------------------------------
+"}}}
+" TABULARIZE {{{--------------------------------------------------------------
 
     " if exists(":Tabularize")
     " nmap <Leader>t= :Tabularize /=<CR>
@@ -582,8 +659,8 @@
     " vmap <Leader>t> :Tabularize /><CR>
     " endif
 
-" ----------------------------------------------------------------------------
-" TABS -----------------------------------------------------------------------
+"}}}
+" TABS {{{--------------------------------------------------------------------
 
     " Ctrl+PagUp or Down
     nnoremap th  :tabfirst<CR>
@@ -598,8 +675,8 @@
     " nmap <tab> gt
     " nmap <s-tab> gT
 
-" ----------------------------------------------------------------------------
-" OTHERS ---------------------------------------------------------------------
+"}}}
+" OTHERS {{{------------------------------------------------------------------
 
     " Shortcut to rapidly toggle `set list`
     nmap <leader>l :set list!<CR>
@@ -633,7 +710,7 @@
     " nnoremap <Leader><S-n> :call NumberToggleVisibility()<cr>
     " nmap <leader><C-N>n :call NumberToggleVisibility()<cr>
     
-    " Buffers Next, Previous, Delete {{{
+    " Buffers Next, Previous, Delete 
     nmap gN ;enew<cr>
     nmap gV ;vnew<cr>
     map gn ;bn<cr>
@@ -651,8 +728,8 @@
     " " Reselect last-pasted text
     nnoremap gv `[v`]
 
-" ----------------------------------------------------------------------------
-" No no no! You gonna learn Vim! ---------------------------------------------
+"}}}
+" No no no! You gonna learn Vim! {{{------------------------------------------
 
     map      <up>    <nop>
     map      <down>  <nop>
@@ -665,22 +742,26 @@
     nnoremap j       gj
     nnoremap k       gk
 
+"}}}
+
 " ############################################################################
 " # >>> -----------               ABBREVIATION             ------------- <<< #
 " ############################################################################
+
+" CORRECT & DATE {{{----------------------------------------------------------
 
     iabbr ture true
     iabbr flase false
 	iabbr xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 	iabbr ydate <c-r>=strftime("%d/%m/%y")<cr>
-    
+
+"}}}
 
 " ############################################################################
 " # >>> -----------               AUTO-COMMANDs            ------------- <<< #
 " ############################################################################
 
-" ----------------------------------------------------------------------------
-" LINE RETURN ----------------------------------------------------------------
+" LINE RETURN {{{-------------------------------------------------------------
 
     " Make sure Vim returns to the same line when you reopen a file.
     " Thanks, Amit
@@ -692,16 +773,16 @@
             \ endif
     augroup END
 
-" ----------------------------------------------------------------------------
-" SAVE WHEN LOOSE FOCUS ------------------------------------------------------
+"}}}
+" SAVE WHEN LOOSE FOCUS {{{---------------------------------------------------
 
     " Save when loose focus.
     " au FocusLost * :wa
     " Save when losing focus
     au FocusLost * :silent! wall
 
-" ----------------------------------------------------------------------------
-" SWAP NUMBERS ON FOCUS ------------------------------------------------------
+"}}}
+" SWAP NUMBERS ON FOCUS {{{---------------------------------------------------
 
     " Works only in GVim ?
     au FocusLost   * :set number
@@ -709,8 +790,8 @@
     au FocusGained * :set number
     au FocusGained * :set relativenumber
 
-" ----------------------------------------------------------------------------
-" TOGGLE NUMBERS -------------------------------------------------------------
+"}}}
+" TOGGLE NUMBERS {{{----------------------------------------------------------
 
     " Toggle Numbers: Relative / Abs
     augroup numbertoggle
@@ -719,16 +800,16 @@
       autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
     augroup END
 
-" ----------------------------------------------------------------------------
-" AUTO RELOAD .vimrc On change >> don't work ---------------------------------
+"}}}
+" AUTO RELOAD .vimrc On change >> don't work {{{------------------------------
 
     augroup myvimrc
         au!
         au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
     augroup END
 
-" ----------------------------------------------------------------------------
-" TRAILING WHITESPACE --------------------------------------------------------
+"}}}
+" TRAILING WHITESPACE {{{-----------------------------------------------------
 
     " Only shown when not in insert mode so I don't go insane.
     augroup trailing
@@ -737,12 +818,22 @@
         au InsertLeave * :set listchars+=trail:⌴
     augroup END
 
+"}}}
+
 " ############################################################################
 " # >>> -----------               FUNCTIONS                ------------- <<< #
 " ############################################################################
 
-" ----------------------------------------------------------------------------
-" TOGGLE NUMBERS: Relative / Abs ---------------------------------------------
+"  AUTO SAVE FOLDS {{{--------------------------------------------------------
+
+    " augroup AutoSaveFolds
+    "     autocmd!
+    "     autocmd BufWinLeave * mkview
+    "     autocmd BufWinEnter * silent loadview
+    " augroup END
+
+"}}}
+" TOGGLE NUMBERS Relative / Abs {{{-------------------------------------------
 
     " Toggle Liner Number Mode -----------------------------------------------
     function! NumberToggleMode()
@@ -761,7 +852,10 @@
             endif
         endif
     endfunc
-    
+
+"}}}
+" HAS PASTE {{{---------------------------------------------------------------
+
     " Returns true if paste mode is enabled ----------------------------------
     function! HasPaste()
         if &paste
@@ -769,6 +863,9 @@
         endif
         return ''
     endfunction
+
+"}}}
+" RANGER CHOOSER :Leader r launch ranger chooser {{{--------------------------
 
     " RangerChooser :Leader r  launch ranger chooser -------------------------
     function! RangeChooser()
@@ -803,7 +900,9 @@
     command! -bar RangerChooser call RangeChooser()
     nnoremap <leader>r :<C-U>RangerChooser<CR>
 
-    " Visual selection search with * or # ------------------------------------
+"}}}
+" Visual selection search with * or  # {{{------------------------------------
+
     function! VisualSelection(direction, extra_filter) range
         let l:saved_reg = @"
         execute "normal! vgvy"
@@ -820,6 +919,9 @@
         let @/ = l:pattern
         let @" = l:saved_reg
     endfunction
+
+"}}}
+" Dont't close win {{{--------------------------------------------------------
 
     " Don't close window, when deleting a buffer -----------------------------
     command! Bclose call <SID>BufcloseCloseIt()
@@ -841,3 +943,5 @@
             execute("bdelete! ".l:currentBufNum)
         endif
     endfunction
+
+"}}}
