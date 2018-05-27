@@ -34,6 +34,7 @@ LABELS["locate"]=""
 # greenclip clipboard history
 # source: https://github.com/erebe/greenclip
 COMMANDS["clipboard"]='rofi -modi "clipboard:greenclip print" -show clipboard'
+                       # rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 LABELS["clipboard"]=""
 
 # show clipboard history
